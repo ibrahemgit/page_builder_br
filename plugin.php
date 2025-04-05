@@ -48,12 +48,12 @@ add_action('init', 'brplugin_register_blocks');
 
 require_once plugin_dir_path(__FILE__) . 'patterns.php';
 
-// require_once plugin_dir_path(__FILE__) . 'render_callback/header_section.php';
-// require_once plugin_dir_path(__FILE__) . 'render_callback/form.php';
-// require_once plugin_dir_path(__FILE__) . 'render_callback/imgloob.php';
-// require_once plugin_dir_path(__FILE__) . 'render_callback/content_section.php';
-// require_once plugin_dir_path(__FILE__) . 'render_callback/cta-block.php';
-// require_once plugin_dir_path(__FILE__) . 'render_callback/cta_fixed.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/header_section.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/form.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/imgloob.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/content_section.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/cta-block.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/cta_fixed.php';
 
 
 /* جروب بلوكات جديد */
