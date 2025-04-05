@@ -1,0 +1,23 @@
+{
+    "name": "brplugin",
+    "version": "1.0.0",
+    "description": "A custom Gutenberg block plugin",
+    "main": "index.js",
+    "scripts": {
+        "build": "wp-scripts build",
+        "start": "wp-scripts start",
+        "format": "wp-scripts format",
+        "lint:js": "wp-scripts lint-js",
+        "lint:css": "wp-scripts lint-style",
+        "check": "wp-scripts check"
+    },
+    "devDependencies": {
+        "@wordpress/scripts": "^25.5.1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@tinymce/tinymce-react": "^6.0.0"
+    }
+}

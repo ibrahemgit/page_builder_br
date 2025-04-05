@@ -1,0 +1,60 @@
+import { registerBlockType } from '@wordpress/blocks';
+import { InspectorControls } from '@wordpress/block-editor';
+import { PanelBody, TextControl } from '@wordpress/components';
+
+registerBlockType('custom/footer-cta-block', {
+    title: 'Footer CTA',
+    icon: 'phone',
+    category: 'custom-blocks',
+
+    attributes: {
+        phoneNumber: { type: 'string', default: '01044009735' },
+        whatsNumber: { type: 'string', default: '0123456789' },
+    },
+
+    example: {
+        attributes: {
+            phoneNumber: '0123456789',
+            whatsNumber: '0123456789',
+        }
+    },
+
+    edit: ({ attributes, setAttributes }) => {
+        const { phoneNumber, whatsNumber } = attributes;
+
+        return (
+            <div className="footer-cta-block-editor">
+                <InspectorControls>
+                    <PanelBody title="إعدادات التواصل">
+                        <TextControl
+                            label="رقم الهاتف"
+                            value={phoneNumber}
+                            onChange={(value) => setAttributes({ phoneNumber: value })}
+                        />
+                        <TextControl
+                            label="رقم الواتساب"
+                            value={whatsNumber}
+                            onChange={(value) => setAttributes({ whatsNumber: value })}
+                        />
+                    </PanelBody>
+                </InspectorControls>
+
+                <div className="footer-cta">
+                    <a
+                        id='cta_whats' target="_blank"
+                        href={`https://wa.me/${whatsNumber}?text=اريد الاستفسار عن :`}
+                        className="social-item whats" aria-label="whatsapp">
+                        <i className="fa fa-whatsapp" aria-hidden="true"></i>
+                    </a>
+                    <a id='cta_call' href={`tel:${phoneNumber}`} className="social-item phone" aria-label="call">
+                        <i className="fa fa-phone" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        );
+    },
+
+    save: () => {
+        return null; // سيتم الريندر باستخدام PHP
+    }
+});

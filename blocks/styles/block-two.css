@@ -1,0 +1,26 @@
+.cusclass {
+    display: flex
+;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+.reversimg .pjc-flx {
+    flex-direction: row-reverse;
+}
+
+.project_header.reverscolor {
+    background: transparent !important;
+}
+
+.project_header.reverscolor .form-title {
+    color: #000 !important;
+    border-right: 3px solid #000 !important;
+}
+
+.project_header.reverscolor .cusinpput input {
+    border: 1px solid #eee !important;
+}
+.project_header.reverscolor .headflx {
+    max-width: 95% !important;
+}
