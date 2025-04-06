@@ -4,8 +4,8 @@ add_action('init', function () {
         'render_callback' => 'custom_cta_block_render',
         'attributes'      => array(
             'titleText'   => array('type' => 'string', 'default' => 'تواصل معنا لمزيد من التفاصيل عن المعرض'),
-            'phoneNumber' => array('type' => 'string', 'default' => '01044009735'),
-            'whatsNumber' => array('type' => 'string', 'default' => '0123456789'),
+            'phoneNumber' => array('type' => 'string', 'default' => ''),
+            'whatsNumber' => array('type' => 'string', 'default' => ''),
         ),
     ));
 });
