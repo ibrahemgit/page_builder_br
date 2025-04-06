@@ -32,7 +32,7 @@ function render_footer_cta_block($attributes) {
 register_block_type('custom/footer-cta-block', array(
     'render_callback' => 'render_footer_cta_block',
     'attributes' => array(
-        'phoneNumber' => array('type' => 'string', 'default' => '01044009735'),
-        'whatsNumber' => array('type' => 'string', 'default' => '0123456789'),
+        'phoneNumber' => array('type' => 'string', 'default' => ''),
+        'whatsNumber' => array('type' => 'string', 'default' => ''),
     ),
 ));
