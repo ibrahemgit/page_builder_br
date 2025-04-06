@@ -9,15 +9,15 @@ registerBlockType('custom/cta-block', {
 
     attributes: {
         titleText: { type: 'string', default: 'تواصل معنا لمزيد من التفاصيل' },
-        phoneNumber: { type: 'string', default: '01044009735' },
-        whatsNumber: { type: 'string', default: '0123456789' },
+        phoneNumber: { type: 'string', default: '' },
+        whatsNumber: { type: 'string', default: '' },
     },
 
     example: {
         attributes: {
             titleText: 'تواصل معنا الآن!',
-            phoneNumber: '0123456789',
-            whatsNumber: '0123456789',
+            phoneNumber: '',
+            whatsNumber: '',
         }
     },
 
