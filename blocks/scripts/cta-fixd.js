@@ -26,16 +26,6 @@ registerBlockType('custom/footer-cta-block', {
             <div className="footer-cta-block-editor">
                 <InspectorControls>
                     <PanelBody title="إعدادات التواصل">
-                        <TextControl
-                            label="رقم الهاتف"
-                            value={phoneNumber}
-                            onChange={(value) => setAttributes({ phoneNumber: value })}
-                        />
-                        <TextControl
-                            label="رقم الواتساب"
-                            value={whatsNumber}
-                            onChange={(value) => setAttributes({ whatsNumber: value })}
-                        />
                     </PanelBody>
                 </InspectorControls>
 

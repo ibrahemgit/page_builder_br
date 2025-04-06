@@ -34,18 +34,6 @@ registerBlockType('custom/cta-block', {
                             onChange={(value) => setAttributes({ titleText: value })}
                         />
                        
-                       <TextControl
-                            label="رقم الواتس"
-                            value={whatsNumber}
-                            onChange={(value) => setAttributes({ whatsNumber: value })}
-                        />
-
-                        <TextControl
-                            label="رقم الهاتف"
-                            value={phoneNumber}
-                            onChange={(value) => setAttributes({ phoneNumber: value })}
-                        />
-                        
                     </PanelBody>
                 </InspectorControls>
 

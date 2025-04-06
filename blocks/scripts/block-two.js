@@ -8,7 +8,7 @@ registerBlockType('custom/form-block', {
     category: 'custom-blocks',
 
     attributes: {
-        formTitle: { type: 'string', default: 'استلم دعوتك المجانية' },
+        formTitle: { type: 'string', default: 'تواصل معنا الان' },
         submitButtonText: { type: 'string', default: 'إرسال' },
         formID: { type: 'string', default: 'header_form' },
         namePlaceholder: { type: 'string', default: 'الاسم بالكامل' },
@@ -21,7 +21,7 @@ registerBlockType('custom/form-block', {
 
     example: {
         attributes: {
-            formTitle: 'احصل على دعوتك الآن!',
+            formTitle: 'تواصل معنا الان',
             submitButtonText: 'اشترك الآن',
             formID: 'example_form',
             namePlaceholder: 'أدخل اسمك',

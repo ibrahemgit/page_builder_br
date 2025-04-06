@@ -1,6 +1,6 @@
 <?php 
 function custom_form_block_render($attributes) {
-    $form_title = isset($attributes['formTitle']) ? esc_html($attributes['formTitle']) : 'استلم دعوتك المجانية';
+    $form_title = isset($attributes['formTitle']) ? esc_html($attributes['formTitle']) : 'تواصل معنا الان';
     $submit_button_text = isset($attributes['submitButtonText']) ? esc_html($attributes['submitButtonText']) : 'إرسال';
     $form_id = isset($attributes['formID']) ? esc_attr($attributes['formID']) : 'header_form';
     $name_placeholder = isset($attributes['namePlaceholder']) ? esc_attr($attributes['namePlaceholder']) : 'الاسم بالكامل';
@@ -44,7 +44,7 @@ function custom_form_block_render($attributes) {
 register_block_type('custom/form-block', array(
     'render_callback' => 'custom_form_block_render',
     'attributes' => array(
-        'formTitle' => array('type' => 'string', 'default' => 'استلم دعوتك المجانية'),
+        'formTitle' => array('type' => 'string', 'default' => 'تواصل معنا الان'),
         'submitButtonText' => array('type' => 'string', 'default' => 'إرسال'),
         'formID' => array('type' => 'string', 'default' => 'header_form'),
         'namePlaceholder' => array('type' => 'string', 'default' => 'الاسم بالكامل'),
