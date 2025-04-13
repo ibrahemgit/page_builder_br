@@ -3,7 +3,7 @@ add_action('init', function () {
     register_block_type('custom/cta-block', array(
         'render_callback' => 'custom_cta_block_render',
         'attributes'      => array(
-            'titleText'   => array('type' => 'string', 'default' => 'تواصل معنا لمزيد من التفاصيل عن المعرض'),
+            'titleText'   => array('type' => 'string', 'default' => 'تواصل معنا لمزيد من التفاصيل'),
             'phoneNumber' => array('type' => 'string', 'default' => ''),
             'whatsNumber' => array('type' => 'string', 'default' => ''),
         ),
@@ -11,7 +11,7 @@ add_action('init', function () {
 });
 
 function custom_cta_block_render($attributes) {
-    $titleText = isset($attributes['titleText']) ? esc_html($attributes['titleText']) : 'تواصل معنا لمزيد من التفاصيل عن المعرض';
+    $titleText = isset($attributes['titleText']) ? esc_html($attributes['titleText']) : 'تواصل معنا لمزيد من التفاصيل';
 
     $phoneNumber = get_option('custom_phone');
     $whatsNumber = get_option('custom_whatsapp');
