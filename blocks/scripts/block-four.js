@@ -12,7 +12,10 @@ registerBlockType('custom/project-content-block', {
         sectionTitle: { type: 'string', default: 'عنوان القسم' },
         content: { type: 'string', default: '' },
         imageUrl: { type: 'string', default: '' },
-        reverseImage: { type: 'boolean', default: false }
+        reverseImage: { type: 'boolean', default: false },
+        pricetbda: { type: 'string', default: '' },
+        mkadmybda: { type: 'string', default: '' },
+        tkseetybda: { type: 'string', default: '' },
     },
 
     example: {
@@ -20,12 +23,15 @@ registerBlockType('custom/project-content-block', {
             sectionTitle: 'عنوان المعاينة',
             content: '<ul><li>مثال 1</li><li>مثال 2</li><li>مثال 3</li></ul>',
             imageUrl: 'https://via.placeholder.com/500',
-            reverseImage: false
+            reverseImage: false,
+            pricetbda: '',
+            mkadmybda: '',
+            tkseetybda: '',
         }
     },
 
     edit: ({ attributes, setAttributes }) => {
-        const { sectionTitle, content, imageUrl, reverseImage } = attributes;
+        const { sectionTitle, content, imageUrl, reverseImage, pricetbda, mkadmybda, tkseetybda } = attributes;
         const blockProps = useBlockProps();
         const editorId = `custom-editor-${Math.random().toString(36).substr(2, 9)}`;
         const editorRef = useRef(null);
@@ -71,22 +77,44 @@ registerBlockType('custom/project-content-block', {
                                 <Button onClick={open} isPrimary>{imageUrl ? 'تغيير الصورة' : 'رفع صورة'}</Button>
                             )}
                         />
+
                         {imageUrl && (
-                            <div style={{ marginTop: '10px' }}>
+                            <div style={{ marginTop: '10px',marginBottom: '10px' }}>
                                 <img src={imageUrl} alt="معاينة الصورة" style={{ maxWidth: '100%', height: 'auto' }} />
                             </div>
+                            
                         )}
+
                         <ToggleControl
                             label="عكس الصورة (reversimg)"
                             checked={reverseImage}
                             onChange={(value) => setAttributes({ reverseImage: value })}
                         />
+
+                        <textarea id={editorId} defaultValue={content} />
+
                     </PanelBody>
 
-                    {/* ✅ TinyMCE يعمل بشكل صحيح داخل القائمة الجانبية */}
-                    <PanelBody title="تحرير المحتوى">
-                        <textarea id={editorId} defaultValue={content} />
+
+                    <PanelBody title="خطط الدفع">
+                        <TextControl
+                            label="الأسعار تبدأ من"
+                            value={pricetbda}
+                            onChange={(value) => setAttributes({ pricetbda: value })}
+                        />
+                        <TextControl
+                            label="مقدم يبدأ من"
+                            value={mkadmybda}
+                            onChange={(value) => setAttributes({ mkadmybda: value })}
+                        />
+                        <TextControl
+                            label="تقسيط يصل حتى"
+                            value={tkseetybda}
+                            onChange={(value) => setAttributes({ tkseetybda: value })}
+                        />
                     </PanelBody>
+
+
                 </InspectorControls>
 
                 {/* ✅ المحتوى يظهر مباشرة أثناء التعديل */}
@@ -101,6 +129,30 @@ registerBlockType('custom/project-content-block', {
                         <div className='ph-content' style={{ padding: '10px', border: '1px solid #eee', minHeight: '100px', backgroundColor: '#fff' }}>
                             <div dangerouslySetInnerHTML={{ __html: content }} />
                         </div>
+
+                        {(pricetbda || mkadmybda || tkseetybda) && (
+                            <div className="head_section_payplan">
+                                {pricetbda && (
+                                    <div className="item_plan">
+                                        <div className="plantext">الأسعار تبدأ من</div>
+                                        <div className="plantitle">{pricetbda}</div>
+                                    </div>
+                                )}
+                                {mkadmybda && (
+                                    <div className="item_plan">
+                                        <div className="plantext">مقدم يبدأ من</div>
+                                        <div className="plantitle">{mkadmybda}</div>
+                                    </div>
+                                )}
+                                {tkseetybda && (
+                                    <div className="item_plan">
+                                        <div className="plantext">تقسيط يصل حتى</div>
+                                        <div className="plantitle">{tkseetybda}</div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
                     </div>
                 </div>
             </div>
