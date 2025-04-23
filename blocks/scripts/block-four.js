@@ -126,33 +126,34 @@ registerBlockType('custom/project-content-block', {
                                 <img src={imageUrl} loading="lazy" width="500" height="400" decoding="async" alt="صورة القسم" />
                             </div>
                         )}
-                        <div className='ph-content' style={{ padding: '10px', border: '1px solid #eee', minHeight: '100px', backgroundColor: '#fff' }}>
-                            <div dangerouslySetInnerHTML={{ __html: content }} />
-                        </div>
-
-                        {(pricetbda || mkadmybda || tkseetybda) && (
-                            <div className="head_section_payplan">
-                                {pricetbda && (
-                                    <div className="item_plan">
-                                        <div className="plantext">الأسعار تبدأ من</div>
-                                        <div className="plantitle">{pricetbda}</div>
-                                    </div>
-                                )}
-                                {mkadmybda && (
-                                    <div className="item_plan">
-                                        <div className="plantext">مقدم يبدأ من</div>
-                                        <div className="plantitle">{mkadmybda}</div>
-                                    </div>
-                                )}
-                                {tkseetybda && (
-                                    <div className="item_plan">
-                                        <div className="plantext">تقسيط يصل حتى</div>
-                                        <div className="plantitle">{tkseetybda}</div>
-                                    </div>
-                                )}
+                        <div className='contentsection'>
+                            <div className='ph-content' style={{ padding: '10px', border: '1px solid #eee', minHeight: '100px', backgroundColor: '#fff' }}>
+                                <div dangerouslySetInnerHTML={{ __html: content }} />
                             </div>
-                        )}
 
+                            {(pricetbda || mkadmybda || tkseetybda) && (
+                                <div className="head_section_payplan">
+                                    {pricetbda && (
+                                        <div className="item_plan">
+                                            <div className="plantext">الأسعار تبدأ من</div>
+                                            <div className="plantitle">{pricetbda}</div>
+                                        </div>
+                                    )}
+                                    {mkadmybda && (
+                                        <div className="item_plan">
+                                            <div className="plantext">مقدم يبدأ من</div>
+                                            <div className="plantitle">{mkadmybda}</div>
+                                        </div>
+                                    )}
+                                    {tkseetybda && (
+                                        <div className="item_plan">
+                                            <div className="plantext">تقسيط يصل حتى</div>
+                                            <div className="plantitle">{tkseetybda}</div>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
