@@ -13,18 +13,24 @@ add_action('init', function () {
 function custom_cta_block_render($attributes) {
     $titleText = isset($attributes['titleText']) ? esc_html($attributes['titleText']) : 'تواصل معنا لمزيد من التفاصيل';
 
-    $phoneNumber = get_option('custom_phone');
-    $whatsNumber = get_option('custom_whatsapp');
-
-    if (empty($phoneNumber)) {
-        $phoneNumber = isset($attributes['phoneNumber']) ? esc_html($attributes['phoneNumber']) : '01044009735';
-    }
-
-    if (empty($whatsNumber)) {
-        $whatsNumber = isset($attributes['whatsNumber']) ? esc_html($attributes['whatsNumber']) : '0123456789';
-    }
-
     $post_id = get_the_ID();
+
+    // 1. ابدأ بالأرقام من post meta
+    $post_phone  = get_post_meta($post_id, 'contact_phone', true);
+    $post_whats  = get_post_meta($post_id, 'contact_whatsapp', true);
+
+    // 2. fallback: من الإعدادات
+    $option_phone = get_option('custom_phone');
+    $option_whats = get_option('custom_whatsapp');
+
+    // 3. fallback نهائي: من attributes
+    $attr_phone = isset($attributes['phoneNumber']) ? esc_html($attributes['phoneNumber']) : '01044009738';
+    $attr_whats = isset($attributes['whatsNumber']) ? esc_html($attributes['whatsNumber']) : '01044009738';
+
+    // تحديد النهائي
+    $phoneNumber  = !empty($post_phone) ? $post_phone : (!empty($option_phone) ? $option_phone : $attr_phone);
+    $whatsNumber  = !empty($post_whats) ? $post_whats : (!empty($option_whats) ? $option_whats : $attr_whats);
+
     $post_title = $post_id ? get_the_title($post_id) : 'المعرض';
 
     ob_start();
