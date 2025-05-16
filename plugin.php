@@ -51,9 +51,14 @@ require_once plugin_dir_path(__FILE__) . 'patterns.php';
 require_once plugin_dir_path(__FILE__) . 'render_callback/header_section.php';
 require_once plugin_dir_path(__FILE__) . 'render_callback/form.php';
 require_once plugin_dir_path(__FILE__) . 'render_callback/imgloob.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/gallery_images.php';
 require_once plugin_dir_path(__FILE__) . 'render_callback/content_section.php';
 require_once plugin_dir_path(__FILE__) . 'render_callback/cta-block.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/cta-block2.php';
 require_once plugin_dir_path(__FILE__) . 'render_callback/cta_fixed.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/cta_fixed2.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/gallery_videos.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/fixed_header.php';
 
 
 /* جروب بلوكات جديد */
@@ -61,8 +66,18 @@ function override_block_categories($categories) {
     return array(
         array(
             'slug'  => 'custom-blocks',
-            'title' => '📌 بلوكات مخصصة',
+            'title' => '📌 بلوكات اساسيه',
             'icon'  => 'star-filled',
+        ),
+        array(
+            'slug'  => 'custom-CTA',
+            'title' => '📌 بلوكات ال CTA',
+            'icon'  => 'phone',
+        ),
+        array(
+            'slug'  => 'custom-Gallry',
+            'title' => '📌 بلوكات ال Gallry',
+            'icon'  => 'format-gallery',
         ),
     );
 }
@@ -75,9 +90,14 @@ function remove_all_default_blocks($allowed_block_types, $editor_context) {
         'custom/home-banner',
         'custom/project-content-block',
         'custom/form-block',
-        'custom/gallery-block',
+        'custom/gallery-logos',
+        'custom/gallery-images',
         'custom/cta-block',
+        'custom/cta-block2',
         'custom/footer-cta-block',
+        'custom/footer-cta-block2',
+        'custom/youtube-gallery',
+        'custom/fixed-header',
     );
 
     return $allowed_blocks;
@@ -87,6 +107,12 @@ add_filter('allowed_block_types_all', 'remove_all_default_blocks', 10, 2);
 
 /* جروب انماط جديد */
 function register_custom_pattern_category() {
+    register_block_pattern_category(
+        'ma3rd-patterns',
+        array(
+            'label' => __( '📌 المعرض', 'text-domain' ), // ✅ اسم المجموعة التي ستظهر في قائمة الأنماط
+        )
+    );
     register_block_pattern_category(
         'custom-patterns',
         array(

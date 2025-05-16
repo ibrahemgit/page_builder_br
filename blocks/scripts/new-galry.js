@@ -2,19 +2,19 @@ import { registerBlockType } from '@wordpress/blocks';
 import { InspectorControls, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { PanelBody, TextControl, Button, IconButton } from '@wordpress/components';
 
-registerBlockType('custom/gallery-logos', {
-    title: 'معرض اللوجوهات',
+registerBlockType('custom/gallery-images', {
+    title: 'معرض الصور',
     icon: 'format-gallery',
     category: 'custom-Gallry',
 
     attributes: {
-        galleryTitle: { type: 'string', default: 'أهم المطورين' },
+        galleryTitle: { type: 'string', default: 'صور المشروع' },
         images: { type: 'array', default: [] }
     },
 
     example: {
         attributes: {
-            galleryTitle: 'شركاؤنا في النجاح',
+            galleryTitle: 'صور المشروع',
             images: [
                 'https://via.placeholder.com/150',
                 'https://via.placeholder.com/150',
@@ -77,7 +77,7 @@ registerBlockType('custom/gallery-logos', {
                 <div className="section_gallry">
                     <div className="container">
                         <div className="pjc-title">{galleryTitle}</div>
-                        <div className="gallry_logos cusclass">
+                        <div className="gallery_images cusclass">
                             {images.length > 0 ? (
                                 images.map((img, index) => (
                                     <div key={index} className="image-container">

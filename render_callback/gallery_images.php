@@ -1,5 +1,5 @@
 <?php 
-function custom_gallery_block_render($attributes) {
+function gallery_images_block_render($attributes) {
     $gallery_title = isset($attributes['galleryTitle']) ? esc_html($attributes['galleryTitle']) : 'أهم المطورين';
     $images = isset($attributes['images']) ? $attributes['images'] : [];
 
@@ -8,7 +8,7 @@ function custom_gallery_block_render($attributes) {
     <div class='section_gallry'>
         <div class='container'>
             <div class="pjc-title"><?php echo $gallery_title; ?></div>
-            <div class='gallry_logos'>
+            <div class='gallery_images'>
                 <?php
                 if (!empty($images)) {
                     foreach ($images as $image_url) {
@@ -24,8 +24,8 @@ function custom_gallery_block_render($attributes) {
 }
 
 // تسجيل البلوك مع render_callback
-register_block_type('custom/gallery-logos', array(
-    'render_callback' => 'custom_gallery_block_render',
+register_block_type('custom/gallery-images', array(
+    'render_callback' => 'gallery_images_block_render',
     'attributes' => array(
         'galleryTitle' => array('type' => 'string', 'default' => 'أهم المطورين'),
         'images' => array('type' => 'array', 'default' => [])

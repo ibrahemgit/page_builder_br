@@ -2,20 +2,25 @@
 *{text-decoration:none;margin:0;padding:0;outline:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,acronym,address,big,cite,code,del,dfn,em,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{border:0;font-family:inherit;font-size:100%;font-style:inherit;color:inherit;font-weight:inherit;margin:0;outline:0;padding:0;vertical-align:baseline}
 html{scroll-behavior:smooth}img{max-height:100%;max-width:100%;position:relative}.hide{display:none}
-/* @font-face {
+@font-face {
     font-family: 'Somar';
-    src: url('./font/Somar-Regular.woff2') format('woff2');
+    src: url('../fonts/Somar-Regular.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 	font-display: swap;
 
-} */
+} 
 
 body {
     font-optical-sizing: auto;
     font-weight: normal;
     font-style: normal;
     line-height: 2em;
+    font-family: "Somar", sans-serif !important;
+}
+.container *:not(.fa):not(.has-icon):not(.dashicon) {
+    font-family: "Somar", sans-serif !important;
+
 }
 .flx-thx {
     display: flex
@@ -24,7 +29,7 @@ cursor: pointer;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: radial-gradient(circle, #3d464e 0%, #000000 140%);
+    background: radial-gradient(circle, #292e32 0%, #000000 140%);
     font-size: 65px;
     font-weight: bold;
     color: #fff;
@@ -296,7 +301,7 @@ a.animatedbutton {
     line-height: 44px;
     color: #000;
     display: block;
-    font-family: "Noto Kufi Arabic", sans-serif;
+    font-family: "Somar", sans-serif;
     font-size: 15px;
     border-radius: 10px;
     background-color: #fff;
@@ -309,7 +314,7 @@ a.animatedbutton {
     line-height: 44px;
     color: #000;
     display: block;
-    font-family: "Noto Kufi Arabic", sans-serif;
+    font-family: "Somar", sans-serif;
     font-size: 15px;
     border-radius: 10px;
     background-color: #fff;
@@ -320,7 +325,7 @@ a.animatedbutton {
     resize: vertical;
 }
 .contact_us .submit {
-    background-color: #3d464e;
+    background-color: #292e32;
     line-height: 40px;
     padding: 3px 25px;
     color: #fff;
@@ -328,7 +333,7 @@ a.animatedbutton {
     border: 0;
     transition: .5s;
     border-radius: 5px;
-    font-family: "Noto Kufi Arabic", sans-serif;
+    font-family: "Somar", sans-serif;
     cursor: pointer;
     max-width: 200px;
 }
@@ -438,10 +443,21 @@ footer.ib_footer {
 .footer-cta {
     display: grid;
     gap: 10px;
-    /* position: fixed; */
+    position: fixed;
     bottom: 20px;
     left: 20px;
     z-index: 99;
+}
+
+
+.footer-cta-block-editor {
+    position: relative;
+}
+.footer-cta-block-editor .footer-cta {
+    position: absolute;
+}
+.cusinpput input {
+    direction: rtl;
 }
 .social-item {
     width: 50px;
@@ -461,7 +477,7 @@ footer.ib_footer {
     background: #229746;
 }
 .social-item.phone {
-    background: #3d464e;
+    background: #292e32;
 }
 
 
@@ -693,7 +709,10 @@ footer.ib_footer {
 .pjc-imgbx img, .ph-imgbx img {
     width: 100%;
     height: 100%;
-	    object-fit: contain;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+    border-radius: 15px;
+    box-shadow: 0 5px 5px 0px rgb(0 0 0 / 28%);
 }
 
 
@@ -727,10 +746,11 @@ footer.ib_footer {
 }
 .towitem a, .towitem span {
     flex-grow: 1;
+    width: auto !important;
 }
 .towitem .subform {
     text-align: center;
-    background: #a97f00;
+    background: #302f2c;
     color: #fff;
     font-weight: bold;
     padding: 10px;
@@ -742,7 +762,7 @@ footer.ib_footer {
 }
 
 .towitem .phone {
-    background: #3d464e;
+    background: #292e32;
 }
 
 .towitem .fa {
@@ -758,7 +778,7 @@ footer.ib_footer {
 }
 .headline.sm_title.shorttitle span {
     font-size: 22px !important;
-    color: #3d464e;
+    color: #000;
     font-weight: bold;
     text-align: center;
 }
@@ -772,23 +792,25 @@ footer.ib_footer {
     display: flex !important;
     justify-content: center;
 }
-.gallry_imgs {
+.gallry_logos {
     display: block;
     overflow: hidden;
     height: 208px;
 }
-.gallry_imgs.slick-initialized {
+.gallry_logos.slick-initialized {
     height: auto;
     overflow: unset;
 }
-.gallry_imgs img {
-    width: 170px;
-    object-fit: contain;
-    margin: 20px;
+.gallry_logos img {
     border-radius: 8px;
-    opacity: .9;
+    margin: 0 15px;
+    -o-object-fit: contain;
+    object-fit: contain;
+    /* opacity: .9; */
+    width: 170px;
+    height: 170px;
 }
-.gallry_imgs .slick-center {
+.gallry_logos .slick-center {
     transform: scale(1.2);
     opacity: 1;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;

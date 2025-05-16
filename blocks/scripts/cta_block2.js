@@ -2,8 +2,8 @@ import { registerBlockType } from '@wordpress/blocks';
 import { InspectorControls, ColorPalette } from '@wordpress/block-editor';
 import { PanelBody, TextControl, Button } from '@wordpress/components';
 
-registerBlockType('custom/cta-block', {
-    title: 'CTA تواصل معنا',
+registerBlockType('custom/cta-block2', {
+    title: 'CTA تواصل معنا 2',
     icon: 'phone',
     category: 'custom-CTA',
 
@@ -40,7 +40,7 @@ registerBlockType('custom/cta-block', {
                 {/* ✅ تطبيق الألوان في المعاينة */}
                 <div className="shortcodesection">
                     <div className="container">
-                        <div className="custom_cta_shortcode">
+                        <div className="custom_cta_shortcode cta_block2">
                             <div className="headline sm_title shorttitle">
                                 <span>{titleText}</span>
                             </div>

@@ -5,7 +5,7 @@ import { PanelBody, TextControl, Button, ToggleControl } from '@wordpress/compon
 registerBlockType('custom/form-block', {
     title: 'نموذج التواصل',
     icon: 'email',
-    category: 'custom-blocks',
+    category: 'custom-CTA',
 
     attributes: {
         formTitle: { type: 'string', default: 'تواصل معنا الان' },
