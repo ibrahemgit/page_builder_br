@@ -59,6 +59,10 @@ require_once plugin_dir_path(__FILE__) . 'render_callback/cta_fixed.php';
 require_once plugin_dir_path(__FILE__) . 'render_callback/cta_fixed2.php';
 require_once plugin_dir_path(__FILE__) . 'render_callback/gallery_videos.php';
 require_once plugin_dir_path(__FILE__) . 'render_callback/fixed_header.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/faq-cards.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/faq-slider.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/barshor.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/fixed-mini-header.php';
 
 
 /* جروب بلوكات جديد */
@@ -79,6 +83,11 @@ function override_block_categories($categories) {
             'title' => '📌 بلوكات ال Gallry',
             'icon'  => 'format-gallery',
         ),
+        array(
+            'slug'  => 'custom-Faq',
+            'title' => '📌 بلوكات ال FAQ',
+            'icon'  => 'editor-help',
+        ),
     );
 }
 add_filter('block_categories_all', 'override_block_categories', 10, 2);
@@ -98,6 +107,11 @@ function remove_all_default_blocks($allowed_block_types, $editor_context) {
         'custom/footer-cta-block2',
         'custom/youtube-gallery',
         'custom/fixed-header',
+        'custom/card-section',
+        'custom/faq-accordion',
+        'custom/arabic-steps',
+        'custom/contact-bar',
+        'custom/hero-header',
     );
 
     return $allowed_blocks;

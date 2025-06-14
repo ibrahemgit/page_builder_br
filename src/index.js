@@ -11,7 +11,14 @@ import '../blocks/scripts/cta-fixd.js';
 import '../blocks/scripts/cta-fixd2.js';
 import '../blocks/scripts/fixed-header.js';
 
+import '../blocks/scripts/faq-cards.js';
+import '../blocks/scripts/faq-slider.js';
+import '../blocks/scripts/barshor.js';
+import '../blocks/scripts/fixed-mini-header.js';
+import '../blocks/scripts/new-hero-header.js';
+
 import '../blocks/styles/block-one.css';
 import '../blocks/styles/block-two.css';
+import '../blocks/styles/hero-header-new.css';
 import '../blocks/styles/ficons.css';
 import '../blocks/styles/responsive.css';

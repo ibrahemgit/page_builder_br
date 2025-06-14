@@ -1,7 +1,7 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls, MediaUpload } from '@wordpress/block-editor';
 import { PanelBody, TextControl, Button, ToggleControl } from '@wordpress/components';
-import { useEffect, useRef } from '@wordpress/element';
+import { Editor } from '@tinymce/tinymce-react'; // ✅ محرر TinyMCE الرسمي
 
 registerBlockType('custom/project-content-block', {
     title: 'محتوى المشروع',
@@ -33,70 +33,75 @@ registerBlockType('custom/project-content-block', {
     edit: ({ attributes, setAttributes }) => {
         const { sectionTitle, content, imageUrl, reverseImage, pricetbda, mkadmybda, tkseetybda } = attributes;
         const blockProps = useBlockProps();
-        const editorId = `custom-editor-${Math.random().toString(36).substr(2, 9)}`;
-        const editorRef = useRef(null);
-
-        useEffect(() => {
-            if (window.tinymce) {
-                window.tinymce.remove(`#${editorId}`); // ❌ إزالة أي محرر سابق لمنع التكرار
-                
-                setTimeout(() => {
-                    window.tinymce.init({
-                        selector: `#${editorId}`, // ✅ تعيين محرر خاص بكل بلوك
-                        menubar: false,
-                        plugins: 'lists', // ❌ إزالة code, preview
-                        toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link',
-                        setup: (editor) => {
-                            editorRef.current = editor;
-                            editor.on('init', () => {
-                                editor.setContent(content); // ✅ تحميل المحتوى الحالي داخل المحرر عند التهيئة
-                            });
-                            editor.on('change keyup paste', () => {
-                                setAttributes({ content: editor.getContent() });
-                            });
-                        }
-                    });
-                }, 300); // ⏳ تأخير التهيئة لضمان تحميل القائمة الجانبية بالكامل
-            }
-        }, [editorId]); // ✅ التأكد من تحميل المحرر عند تغيير البلوك
 
         return (
             <div {...blockProps} className={`project_content ${reverseImage ? 'reversimg' : ''}`}>
                 {/* القائمة الجانبية */}
                 <InspectorControls>
-                    <PanelBody title="إعدادات القسم">
+                    <PanelBody title="إعدادات المحتوي" initialOpen={false}>
                         <TextControl
-                            label="عنوان القسم"
+                            label="عنوان السكشن"
                             value={sectionTitle}
                             onChange={(value) => setAttributes({ sectionTitle: value })}
                         />
+                        
+
+                        {/* ✅ TinyMCE Editor */}
+                        <Editor
+                            value={content}
+                            init={{
+                                height: 200,
+                                menubar: false,
+                                plugins: 'lists link',
+                                directionality: 'rtl', // ✅ تفعيل RTL افتراضيًا
+                                content_style: 'body { direction: rtl; text-align: right; }', // ✅ تنسيق المحتوى داخل المحرر
+                                toolbar: 'formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link | undo redo ',
+                                block_formats: 'Paragraph=p; Heading 2=h2; Heading 3=h3; Heading 4=h4',
+                            }}
+                            onEditorChange={(newContent) => setAttributes({ content: newContent })}
+                        />
+                    </PanelBody>
+
+                    <PanelBody title="إعدادات الصورة" initialOpen={false}>
                         <MediaUpload
                             onSelect={(media) => setAttributes({ imageUrl: media.url })}
                             allowedTypes={['image']}
                             render={({ open }) => (
-                                <Button onClick={open} isPrimary>{imageUrl ? 'تغيير الصورة' : 'رفع صورة'}</Button>
+                                <Button onClick={open} isPrimary>
+                                    {imageUrl ? 'تغيير الصورة' : 'رفع صورة'}
+                                </Button>
                             )}
                         />
 
                         {imageUrl && (
-                            <div style={{ marginTop: '10px',marginBottom: '10px' }}>
-                                <img src={imageUrl} alt="معاينة الصورة" style={{ maxWidth: '100%', height: 'auto' }} />
-                            </div>
-                            
+                            <>
+                                <div style={{ marginTop: '10px', marginBottom: '10px' }}>
+                                    <img
+                                        src={imageUrl}
+                                        alt="معاينة الصورة"
+                                        style={{ maxWidth: '100%', height: 'auto', display: 'block', marginBottom: '10px' }}
+                                    />
+                                    <Button
+                                        isDestructive
+                                        onClick={() => setAttributes({ imageUrl: '' })}
+                                    >
+                                        حذف الصورة
+                                    </Button>
+                                </div>
+
+                                <div style={{ margin: '10px 0' }}></div>
+                                
+                                <ToggleControl
+                                    label="عكس الصورة (reversimg)"
+                                    checked={reverseImage}
+                                    onChange={(value) => setAttributes({ reverseImage: value })}
+                                />
+                            </>
                         )}
-
-                        <ToggleControl
-                            label="عكس الصورة (reversimg)"
-                            checked={reverseImage}
-                            onChange={(value) => setAttributes({ reverseImage: value })}
-                        />
-
-                        <textarea id={editorId} defaultValue={content} />
-
+                        
                     </PanelBody>
 
-
-                    <PanelBody title="خطط الدفع">
+                    <PanelBody title="خطط الدفع" initialOpen={false}>
                         <TextControl
                             label="الأسعار تبدأ من"
                             value={pricetbda}
@@ -114,7 +119,6 @@ registerBlockType('custom/project-content-block', {
                         />
                     </PanelBody>
 
-
                 </InspectorControls>
 
                 {/* ✅ المحتوى يظهر مباشرة أثناء التعديل */}
@@ -122,13 +126,25 @@ registerBlockType('custom/project-content-block', {
                     <h2 className='pjc-title'>{sectionTitle}</h2>
                     <div className='pjc-flx' style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                         {imageUrl && (
-                            <div className='pjc-imgbx' style={{ flex: '1' }}>
+                            <div className='pjc-imgbx inprev'>
                                 <img src={imageUrl} loading="lazy" width="500" height="400" decoding="async" alt="صورة القسم" />
                             </div>
                         )}
                         <div className='contentsection'>
                             <div className='ph-content' style={{ padding: '10px', border: '1px solid #eee', minHeight: '100px', backgroundColor: '#fff' }}>
-                                <div dangerouslySetInnerHTML={{ __html: content }} />
+                                <Editor
+                                    value={content}
+                                    init={{
+                                        height: 200,
+                                        menubar: false,
+                                        plugins: 'lists link',
+                                        directionality: 'rtl', // ✅ تفعيل RTL افتراضيًا
+                                        content_style: 'body { direction: rtl; text-align: right; }', // ✅ تنسيق المحتوى داخل المحرر
+                                        toolbar: 'formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link | undo redo ',
+                                        block_formats: 'Paragraph=p; Heading 2=h2; Heading 3=h3; Heading 4=h4',
+                                    }}
+                                    onEditorChange={(newContent) => setAttributes({ content: newContent })}
+                                />
                             </div>
 
                             {(pricetbda || mkadmybda || tkseetybda) && (

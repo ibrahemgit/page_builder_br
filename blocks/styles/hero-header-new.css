@@ -1,0 +1,37 @@
+.hero-header-new {
+    background-size: cover;
+    background-position: center;
+}
+.flex-items-hero, .hero-header-new {
+    height: 100dvh;
+}
+.hero-header-new.prev , .prev .flex-items-hero {
+    height: 60dvh;
+}
+
+.flex-items-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.hero-new-logo.logo-absolute {
+    position: absolute;
+    top: 20px;
+    right: unset;
+    left: unset;
+}
+
+.hero-new-logo.logo-align-center {
+    right: unset;
+    left: unset;
+}
+.hero-new-logo.logo-align-right {
+    right: 20px;
+}
+.hero-new-logo.logo-align-left {
+    left: 20px;
+}
