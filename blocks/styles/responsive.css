@@ -1,4 +1,16 @@
 @media screen and (max-width: 992px){
+    .msvh_headline {
+        font-size: 30px;
+    }
+    .msvh_description {
+        font-size: 16px;
+    }
+    form.msvh_form {
+        flex-direction: column;
+    }
+    .msvh_logo img {
+        height: 65px;
+    }
 
 .steps-row {
     flex-direction: column;

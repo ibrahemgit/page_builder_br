@@ -12,8 +12,8 @@ function render_footer_cta_block($attributes) {
     $option_whats = get_option('custom_whatsapp');
 
     // 3. block attributes fallback
-    $attr_phone = !empty($attributes['phoneNumber']) ? esc_attr($attributes['phoneNumber']) : '01044009738';
-    $attr_whats = !empty($attributes['whatsNumber']) ? esc_attr($attributes['whatsNumber']) : '01044009738';
+    $attr_phone = !empty($attributes['phoneNumber']) ? esc_attr($attributes['phoneNumber']) : '';
+    $attr_whats = !empty($attributes['whatsNumber']) ? esc_attr($attributes['whatsNumber']) : '';
 
     // النهائي
     $phone_n = !empty($post_phone) ? $post_phone : (!empty($option_phone) ? $option_phone : $attr_phone);

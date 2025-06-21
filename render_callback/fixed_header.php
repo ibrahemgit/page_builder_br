@@ -11,8 +11,8 @@ function fixed_header_block_render($attributes) {
     $post_phone  = get_post_meta($post_id, 'contact_phone', true);
     $post_whats  = get_post_meta($post_id, 'contact_whatsapp', true);
 
-    $attr_phone = '01044009738';
-    $attr_whats = '01044009738';
+    $attr_phone = '';
+    $attr_whats = '';
 
     $option_phone = get_option('custom_phone');
     $option_whats = get_option('custom_whatsapp');

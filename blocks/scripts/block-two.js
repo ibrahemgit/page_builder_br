@@ -15,7 +15,7 @@ registerBlockType('custom/form-block', {
         phonePlaceholder: { type: 'string', default: 'رقم الهاتف' },
         bgColor: { type: 'string', default: '#000000' },
         reverseColor: { type: 'boolean', default: false },
-        buttonBgColor: { type: 'string', default: '#0073aa' }, // ✅ لون خلفية الزر
+        buttonBgColor: { type: 'string', default: '#3f51b5' }, // ✅ لون خلفية الزر
         buttonTextColor: { type: 'string', default: '#ffffff' } // ✅ لون نص الزر
     },
 
@@ -28,7 +28,7 @@ registerBlockType('custom/form-block', {
             phonePlaceholder: 'أدخل رقم هاتفك',
             bgColor: '#000000',
             reverseColor: true,
-            buttonBgColor: '#0073aa',
+            buttonBgColor: '#3f51b5',
             buttonTextColor: '#ffffff'
         }
     },

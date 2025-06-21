@@ -30,7 +30,7 @@ registerBlockType('custom/arabic-steps', {
         widgetTitle: { type: 'string', default: 'امتلك عقارك بخطوات بسيطة' },
         ctaText: { type: 'string', default: 'سجل اهتمامك' },
         ctaLink: { type: 'string', default: '#' },
-        ctaBgColor: { type: 'string', default: '#007cba' },
+        ctaBgColor: { type: 'string', default: '#3f51b5' },
         ctaTextColor: { type: 'string', default: '#ffffff' }
     },
 

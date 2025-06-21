@@ -63,6 +63,7 @@ require_once plugin_dir_path(__FILE__) . 'render_callback/faq-cards.php';
 require_once plugin_dir_path(__FILE__) . 'render_callback/faq-slider.php';
 require_once plugin_dir_path(__FILE__) . 'render_callback/barshor.php';
 require_once plugin_dir_path(__FILE__) . 'render_callback/fixed-mini-header.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/ultimate_hero_header.php';
 
 
 /* جروب بلوكات جديد */
@@ -135,3 +136,8 @@ function register_custom_pattern_category() {
     );
 }
 add_action('init', 'register_custom_pattern_category');
+
+function enqueue_faq_block_assets() {
+    wp_enqueue_media(); // ضروري لفتح Media Library داخل بلوك جوتنبرج
+}
+add_action('enqueue_block_editor_assets', 'enqueue_faq_block_assets');

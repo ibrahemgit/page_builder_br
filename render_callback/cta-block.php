@@ -24,8 +24,8 @@ function custom_cta_block_render($attributes) {
     $option_whats = get_option('custom_whatsapp');
 
     // 3. fallback نهائي: من attributes
-    $attr_phone = isset($attributes['phoneNumber']) ? esc_html($attributes['phoneNumber']) : '01044009738';
-    $attr_whats = isset($attributes['whatsNumber']) ? esc_html($attributes['whatsNumber']) : '01044009738';
+    $attr_phone = isset($attributes['phoneNumber']) ? esc_html($attributes['phoneNumber']) : '';
+    $attr_whats = isset($attributes['whatsNumber']) ? esc_html($attributes['whatsNumber']) : '';
 
     // تحديد النهائي
     $phoneNumber  = !empty($post_phone) ? $post_phone : (!empty($option_phone) ? $option_phone : $attr_phone);

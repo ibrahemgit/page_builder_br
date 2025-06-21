@@ -40,7 +40,7 @@ registerBlockType('custom/contact-bar', {
                     <div className="contact-buttons">
                         <span className='contact-btn' style={{ margin: '0 10px' }}> <i className="fa fa-whatsapp"></i> واتساب </span>
                         <span className='contact-btn' style={{ margin: '0 10px' }}> <i className="fa fa-phone"></i> اتصل بنا </span>
-                        <span className='contact-btn' style={{ margin: '0 10px' }}> <i className="fa fa-calendar"></i> تواصل معنا </span>
+                        <span className='contact-btn' style={{ margin: '0 10px' }}> <i className="fa fa-envelope-open-o"></i> احجز وحدتك </span>
                     </div>
                 </div>
             </Fragment>

@@ -1,211 +1,309 @@
-import { MediaUpload, InspectorControls , PanelColorSettings  } from '@wordpress/block-editor';
 import {
-    TextControl,
-    TextareaControl,
-    ToggleControl,
-    PanelBody,
-    Button,
-    SelectControl
+  MediaUpload,
+  InspectorControls
+} from '@wordpress/block-editor';
+import {
+  TextControl,
+  ToggleControl,
+  PanelBody,
+  Button,
+  SelectControl
 } from '@wordpress/components';
 
 import { registerBlockType } from '@wordpress/blocks';
 import { Fragment } from '@wordpress/element';
 
 registerBlockType('custom/hero-header', {
-    title: 'Ultimate Hero Header',
-    icon: 'format-image',
-    category: 'custom-blocks',
+  title: 'Ultimate Hero Header',
+  icon: 'format-image',
+  category: 'custom-blocks',
 
-    attributes: {
-        backgroundImage: {
-            type: 'string',
-            default: 'https://placehold.co/1200x1200?text=Hero+Background'
-        },
-        logoImage: {
-            type: 'string',
-            default: 'https://placehold.co/200x80/000000/FFF?text=Logo'
-        },
-        title: { type: 'string', default: 'عنوان الهيدر' },
-        description: { type: 'string', default: 'وصف الهيدر هنا' },
-        enableForm: { type: 'boolean', default: false },
-        logoAlign: { type: 'string', default: 'center' },
-        ctaText: { type: 'string', default: 'اضغط هنا' },
-        ctaBgColor: { type: 'string', default: '#007cba' },
-        ctaTextColor: { type: 'string', default: '#ffffff' },
-        enableCTA: { type: 'boolean', default: true },
-        logoAbsolute: { type: 'boolean', default: false },
+  attributes: {
+    backgroundImage: { type: 'string', default: '' },
+    logoImage: { type: 'string', default: '' },
+    title: { type: 'string', default: 'عنوان الهيدر' },
+    description: { type: 'string', default: 'وصف الهيدر هنا' },
+    enableForm: { type: 'boolean', default: false },
+    logoAlign: { type: 'string', default: 'center' },
+    logoAbsolute: { type: 'boolean', default: false },
+    formTitle: { type: 'string', default: 'تواصل معنا' },
+    enableFormStyle: { type: 'boolean', default: true },
 
-    },
+    // CTA buttons
+    enableCTAWhatsapp: { type: 'boolean', default: true },
+    enableCTACall: { type: 'boolean', default: true },
+    enableCTAPopup: { type: 'boolean', default: true },
+    ctaWhatsappText: { type: 'string', default: 'واتساب' },
+    ctaCallText: { type: 'string', default: 'اتصال' },
+    ctaPopupText: { type: 'string', default: 'احجز وحدتك' },
 
-    edit: ({ attributes, setAttributes }) => {
-        const {
-            backgroundImage,
-            logoImage,
-            title,
-            description,
-            enableForm,
-            logoAlign
-        } = attributes;
+    // Cards
+    cards: { type: 'array', default: [] }
+  },
 
-        return (
-            <Fragment>
-                <InspectorControls>
-                    <PanelBody title="إعدادات الهيدر" initialOpen={false}>
-                        <div style={{ margin: '10px 0' }}></div>
+  edit: ({ attributes, setAttributes }) => {
+    const {
+      backgroundImage,
+      logoImage,
+      title,
+      description,
+      enableForm,
+      logoAlign,
+      logoAbsolute,
+      formTitle,
+      enableFormStyle,
+      enableCTAWhatsapp,
+      enableCTACall,
+      enableCTAPopup,
+      ctaWhatsappText,
+      ctaCallText,
+      ctaPopupText,
+      cards
+    } = attributes;
 
-                        <MediaUpload
-                            onSelect={(media) => setAttributes({ backgroundImage: media.url })}
-                            allowedTypes={['image']}
-                            render={({ open }) => (
-                                <Button onClick={open} isSecondary>
-                                    اختر صورة الخلفية
-                                </Button>
-                            )}
-                        />
-                        <div style={{ margin: '10px 0' }}></div>
-
-                        <TextControl
-                            label="عنوان الهيدر"
-                            value={title}
-                            onChange={(value) => setAttributes({ title: value })}
-                        />
-                        <TextControl
-                            label="وصف الهيدر"
-                            value={description}
-                            onChange={(value) => setAttributes({ description: value })}
-                        />
-
-                    </PanelBody>
-
-
-
-                    <PanelBody title='اعدادات اللوجو' initialOpen={false}>
-
-                        <MediaUpload
-                            onSelect={(media) => setAttributes({ logoImage: media.url })}
-                            allowedTypes={['image']}
-                            render={({ open }) => (
-                                <Button onClick={open} isSecondary style={{ marginTop: '10px' }}>
-                                    اختر لوجو
-                                </Button>
-                            )}
-                        />
-                        <div style={{ margin: '10px 0' }}></div>
-
-                        <ToggleControl
-                            label="عرض اللوجو بوضع مطلق (Absolute)"
-                            checked={attributes.logoAbsolute}
-                            onChange={(value) => setAttributes({ logoAbsolute: value })}
-                        />
-                        <div style={{ margin: '10px 0' }}></div>
-
-                        {attributes.logoAbsolute && (
-                            <SelectControl
-                                label="محاذاة اللوجو"
-                                value={attributes.logoAlign}
-                                options={[
-                                    { label: 'يمين', value: 'right' },
-                                    { label: 'منتصف', value: 'center' },
-                                    { label: 'يسار', value: 'left' }
-                                ]}
-                                onChange={(value) => setAttributes({ logoAlign: value })}
-                            />
-                        )}
-                    </PanelBody>
-
-                    <PanelBody title="إعدادات ال CTA" initialOpen={false} >
-
-                        <PanelBody title="الفورم" initialOpen={false} >
-                            <div style={{ margin: '10px 0' }}></div>
-
-                            <ToggleControl
-                                label="تفعيل الفورم العائم"
-                                checked={enableForm}
-                                onChange={(value) => setAttributes({ enableForm: value })}
-                            />
-
-                        </PanelBody>
-                        
-                        <PanelBody title="الازرار" initialOpen={false} >
-                            <div style={{ margin: '10px 0' }}></div>
-
-                            <ToggleControl
-                                label="إظهار الزر"
-                                checked={attributes.enableCTA}
-                                onChange={(value) => setAttributes({ enableCTA: value })}
-                            />
-                            <div style={{ margin: '10px 0' }}></div>
-                            <TextControl
-                                label="نص الزر"
-                                value={attributes.ctaText}
-                                onChange={(value) => setAttributes({ ctaText: value })}
-                            />
-
-                            <PanelColorSettings
-                                title="ألوان الزر"
-                                initialOpen={false}
-                                colorSettings={[
-                                    {
-                                        label: 'لون خلفية الزر',
-                                        value: attributes.ctaBgColor,
-                                        onChange: (value) => setAttributes({ ctaBgColor: value })
-                                    },
-                                    {
-                                        label: 'لون نص الزر',
-                                        value: attributes.ctaTextColor,
-                                        onChange: (value) => setAttributes({ ctaTextColor: value })
-                                    }
-                                ]}
-                            />
-                        </PanelBody>
-                    </PanelBody>
-                </InspectorControls>
-
-                <div
-                    className="hero-header-new prev"
-                    style={{ backgroundImage: `url(${backgroundImage})` }}
+    return (
+      <Fragment>
+        <InspectorControls>
+          <PanelBody title="إعدادات الهيدر" initialOpen={false}>
+            {backgroundImage && (
+              <div style={{ marginBottom: '10px' }}>
+                <img src={backgroundImage} alt="Background" style={{ maxWidth: '100%', borderRadius: '4px' }} />
+                <Button
+                  isDestructive
+                  isSmall
+                  onClick={() => setAttributes({ backgroundImage: '' })}
+                  style={{ marginTop: '5px' }}
                 >
-                    <div className='container'>
-                        <div className='flex-items-hero'>
-                            {logoImage && (
-                                <img
-                                    className={`hero-new-logo logo-align-${logoAlign} ${attributes.logoAbsolute ? 'logo-absolute' : ''}`}
-                                    src={logoImage}
-                                    alt="Logo"
-                                />
-                            )}
+                  حذف الخلفية
+                </Button>
+              </div>
+            )}
+            <MediaUpload
+              onSelect={(media) => setAttributes({ backgroundImage: media.url })}
+              allowedTypes={['image']}
+              render={({ open }) => (
+                <Button onClick={open} isSecondary>
+                  {backgroundImage ? 'تغيير الخلفية' : 'اختيار خلفية'}
+                </Button>
+              )}
+            />
+            <TextControl
+              label="عنوان الهيدر"
+              value={title}
+              onChange={(value) => setAttributes({ title: value })}
+            />
+            <TextControl
+              label="وصف الهيدر"
+              value={description}
+              onChange={(value) => setAttributes({ description: value })}
+            />
+          </PanelBody>
 
-                            {title && <h1>{title}</h1>}
-                            {description && <span>{description}</span>}
+          <PanelBody title="إعدادات اللوجو" initialOpen={false}>
+            {logoImage && (
+              <div style={{ marginBottom: '10px' }}>
+                <img src={logoImage} alt="Logo" style={{ maxWidth: '100%', borderRadius: '4px', background: '#fff', padding: '5px' }} />
+                <Button
+                  isDestructive
+                  isSmall
+                  onClick={() => setAttributes({ logoImage: '' })}
+                  style={{ marginTop: '5px' }}
+                >
+                  حذف اللوجو
+                </Button>
+              </div>
+            )}
+            <MediaUpload
+              onSelect={(media) => setAttributes({ logoImage: media.url })}
+              allowedTypes={['image']}
+              render={({ open }) => (
+                <Button onClick={open} isSecondary>
+                  {logoImage ? 'تغيير اللوجو' : 'اختيار لوجو'}
+                </Button>
+              )}
+            />
+            <ToggleControl
+              label="عرض اللوجو بوضع مطلق (Absolute)"
+              checked={logoAbsolute}
+              onChange={(value) => setAttributes({ logoAbsolute: value })}
+            />
+            {logoAbsolute && (
+              <SelectControl
+                label="محاذاة اللوجو"
+                value={logoAlign}
+                options={[
+                  { label: 'يمين', value: 'right' },
+                  { label: 'منتصف', value: 'center' },
+                  { label: 'يسار', value: 'left' }
+                ]}
+                onChange={(value) => setAttributes({ logoAlign: value })}
+              />
+            )}
+          </PanelBody>
 
-                            {enableForm &&  (
-                                <div> الفورم هنا </div>
-                            )}
+          <PanelBody title="إعدادات CTA" initialOpen={false}>
+            <PanelBody title="[Form]" initialOpen={false}>
+              <ToggleControl
+                label="تفعيل الفورم"
+                checked={enableForm}
+                onChange={(value) => setAttributes({ enableForm: value })}
+              />
+              <ToggleControl
+                label="فورم شفاف"
+                checked={enableFormStyle}
+                onChange={(value) => setAttributes({ enableFormStyle: value })}
+              />
+              <TextControl
+                label="عنوان الفورم"
+                value={formTitle}
+                onChange={(value) => setAttributes({ formTitle: value })}
+              />
+            </PanelBody>
 
-                            {attributes.enableCTA && attributes.ctaText && (
-                                <a
-                                    className="hero-header-cta"
-                                    href="#"
-                                    style={{
-                                        backgroundColor: attributes.ctaBgColor,
-                                        color: attributes.ctaTextColor,
-                                        padding: '10px 20px',
-                                        textDecoration: 'none',
-                                        display: 'inline-block',
-                                        borderRadius: '4px',
-                                        marginTop: '20px'
-                                    }}
-                                >
-                                    {attributes.ctaText}
-                                </a>
-                            )}
+            <PanelBody title="[Buttons]" initialOpen={false}>
+              <ToggleControl
+                label="إظهار زر واتساب"
+                checked={enableCTAWhatsapp}
+                onChange={(value) => setAttributes({ enableCTAWhatsapp: value })}
+              />
+              <TextControl
+                label="نص زر واتساب"
+                value={ctaWhatsappText}
+                onChange={(value) => setAttributes({ ctaWhatsappText: value })}
+              />
 
-                        </div>
-                    </div>
+              <ToggleControl
+                label="إظهار زر الاتصال"
+                checked={enableCTACall}
+                onChange={(value) => setAttributes({ enableCTACall: value })}
+              />
+              <TextControl
+                label="نص زر الاتصال"
+                value={ctaCallText}
+                onChange={(value) => setAttributes({ ctaCallText: value })}
+              />
+
+              <ToggleControl
+                label="إظهار زر الحجز"
+                checked={enableCTAPopup}
+                onChange={(value) => setAttributes({ enableCTAPopup: value })}
+              />
+              <TextControl
+                label="نص زر الحجز"
+                value={ctaPopupText}
+                onChange={(value) => setAttributes({ ctaPopupText: value })}
+              />
+            </PanelBody>
+          </PanelBody>
+
+          <PanelBody title="البطاقات" initialOpen={false}>
+            {cards.map((card, index) => (
+              <div key={index} style={{ border: '1px solid #ddd', padding: '10px', marginBottom: '10px', borderRadius: '6px', background: '#fafafa' }}>
+                <TextControl
+                  label={`عنوان البطاقة ${index + 1}`}
+                  value={card.title}
+                  onChange={(value) => {
+                    const newCards = [...cards];
+                    newCards[index].title = value;
+                    setAttributes({ cards: newCards });
+                  }}
+                />
+                <TextControl
+                  label={`وصف البطاقة ${index + 1}`}
+                  value={card.description}
+                  onChange={(value) => {
+                    const newCards = [...cards];
+                    newCards[index].description = value;
+                    setAttributes({ cards: newCards });
+                  }}
+                />
+                <Button
+                  isDestructive
+                  isSmall
+                  onClick={() => {
+                    const newCards = cards.filter((_, i) => i !== index);
+                    setAttributes({ cards: newCards });
+                  }}
+                  style={{ marginTop: '5px' }}
+                >
+                  حذف البطاقة
+                </Button>
+              </div>
+            ))}
+
+            <Button
+              isSecondary
+              onClick={() => setAttributes({ cards: [...cards, { title: 'New Card', description: 'Card description here.' }] })}
+            >
+              إضافة بطاقة جديدة
+            </Button>
+          </PanelBody>
+        </InspectorControls>
+
+        <div className="msvh_hero-section" style={{ backgroundImage: `url(${backgroundImage})` }}>
+          <div className="msvh_overlay"></div>
+          <div className="container msvh_content">
+            {logoImage && (
+              <div className={`msvh_logo ${logoAbsolute ? `logo-absolute logo-align-${logoAlign}` : ''}`}>
+                <img src={logoImage} alt="Logo" />
+              </div>
+            )}
+
+            {(title || description) && (
+              <div className="msvh_content_sm">
+                {title && <h1 className="msvh_headline">{title}</h1>}
+                {description && <p className="msvh_description">{description}</p>}
+              </div>
+            )}
+
+            {enableForm && (
+              <div className={`form_header_msvh ${enableFormStyle ? '' : 'WitBg'}`}>
+                {formTitle && <h3 className="msvh_form-title">{formTitle}</h3>}
+                <form className="msvh_form" onSubmit={(e) => e.preventDefault()}>
+                  <input type="text" placeholder="الاسم بالكامل" required />
+                  <input type="tel" placeholder="رقم الهاتف" required />
+                  <button type="submit" className="msvh_submit-btn">إرسال</button>
+                </form>
+              </div>
+            )}
+
+            {(enableCTAWhatsapp || enableCTACall || enableCTAPopup) && (
+              <div className="custom_cta_shortcode cta_block2 msvh_cta_buttons">
+                <div className="towitem">
+                  {enableCTAWhatsapp && (
+                    <a id="cta_whats" target="_blank" className="whatsapp">
+                      <i className="fa fa-whatsapp" aria-hidden="true"></i> {ctaWhatsappText}
+                    </a>
+                  )}
+                  {enableCTACall && (
+                    <a id="cta_call" className="phone">
+                      <i className="fa fa-phone" aria-hidden="true"></i> {ctaCallText}
+                    </a>
+                  )}
+                  {enableCTAPopup && (
+                    <span id="cta_pop" className="formpopub">
+                      <i className="fa fa-envelope-open-o" aria-hidden="true"></i> {ctaPopupText}
+                    </span>
+                  )}
                 </div>
-            </Fragment>
-        );
-    },
+              </div>
+            )}
 
-    save: () => null // باستخدام render_callback في PHP
+            {cards.length > 0 && (
+              <div className="msvh_cards-wrapper">
+                {cards.map((card, index) => (
+                  <div className="msvh_card" key={index}>
+                    <h3 className="msvh_card-title">{card.title}</h3>
+                    <p className="msvh_card-desc">{card.description}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </Fragment>
+    );
+  },
+
+  save: () => null // render_callback PHP
 });

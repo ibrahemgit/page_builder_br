@@ -1,37 +1,213 @@
-.hero-header-new {
-    background-size: cover;
-    background-position: center;
-}
-.flex-items-hero, .hero-header-new {
-    height: 100dvh;
-}
-.hero-header-new.prev , .prev .flex-items-hero {
-    height: 60dvh;
+.msvh_hero-section {
+  min-height: calc(100dvh - 40px);
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 30px;
+  color: white;
+  text-align: center;
 }
 
-.flex-items-hero {
-    position: relative;
+.msvh_overlay {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(6px);
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.msvh_content {
+  position: initial;
+  z-index: 2;
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin: 0 auto;
+}
+
+.msvh_content_sm {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: 25px;
+}
+
+/* Logo */
+.msvh_logo img {
+  height: 80px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  margin: 0 auto;
+}
+
+.logo-absolute {
+  position: absolute;
+  top: 20px;
+}
+.logo-align-center{
+    right: 0;
+    left: 0;
+}
+
+.logo-align-left {
+  left: 20px;
+}
+
+
+
+.logo-align-right {
+  right: 20px;
+}
+
+/* Headline */
+.msvh_headline {
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 1.5;
+  margin: 0;
+}
+
+
+
+/* Description */
+.msvh_description {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+
+/* Form */
+.msvh_form input {
+    background-color: hsla(0, 0%, 100%, .1);
+    border: 1px solid hsla(0, 0%, 100%, .2);
+    border-radius: 4px;
+    color: #fff;
+    padding: .75rem;
+    width: 100%;
+    direction: rtl;
+}
+
+.msvh_form input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.msvh_submit-btn {
+    background-color: #fff;
+    border: none;
+    border-radius: 4px;
+    color: #000;
+    cursor: pointer;
+    font-weight: 700;
+    padding: .75rem 1rem;
+    transition: background-color .3s ease;
+    flex-shrink: 0;
+    min-width: 120px;
+}
+
+.msvh_submit-btn:hover {
+  background-color: #f0f0f0;
+}
+
+/* CTA Button */
+.msvh_contact-btn {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid white;
+  color: white;
+  background: transparent;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.msvh_contact-btn:hover {
+  background: white;
+  color: black;
+}
+
+/* Cards */
+.msvh_cards-wrapper {
     align-items: center;
+    display: flex;
     gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-.hero-new-logo.logo-absolute {
-    position: absolute;
-    top: 20px;
-    right: unset;
-    left: unset;
+.msvh_card {
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    background: #fff;
+    flex-grow: 1;
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+    padding: 10px 15px;
+    text-align: right;
+    transition: box-shadow .3s ease;
 }
 
-.hero-new-logo.logo-align-center {
-    right: unset;
-    left: unset;
+.msvh_card:hover {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
-.hero-new-logo.logo-align-right {
-    right: 20px;
+
+.msvh_card-title {
+    color: #111;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 5px;
 }
-.hero-new-logo.logo-align-left {
-    left: 20px;
+.msvh_card-desc {
+    color: #444;
+    font-size: 14px;
+}
+
+form.msvh_form {
+    display: flex
+;
+    gap: 15px;
+}
+.msvh_logo img {
+    display: block;
+}
+.form_header_msvh{
+    padding: 15px;
+    border: 1px solid hsla(0, 0%, 100%, .2);
+    border-radius: 8px;
+}
+.msvh_form-title {
+    text-align: right;
+    padding-right: 10px;
+    border-right: 3px solid #fff;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.form_header_msvh.WitBg {
+    background: #fff;
+    border: unset;
+    box-shadow: 0 0 15px 1px #000;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+}
+
+.form_header_msvh.WitBg .msvh_form-title {
+    border-color: #292e32;
+    color: #292e32;
+}
+
+.form_header_msvh.WitBg .msvh_form input, .form_header_msvh.WitBg .msvh_form input::placeholder {
+    color: #000;
+    border-color: #eee;
+}
+
+.form_header_msvh.WitBg .msvh_form .msvh_submit-btn {
+    background: #292e32;
+    color: #fff;
 }

@@ -41,9 +41,10 @@
     color: #08241a;
 }
 
-.cta_block2 .towitem a {
+.cta_block2 .towitem a, .cta_block2 .towitem span {
     padding: 5px 25px;
     border-radius: 30px;
+    cursor: pointer;
 }
 
 .gallery_images img,.gallery_images iframe {
@@ -115,7 +116,12 @@
 }
 .footer_cta_block2 .towitem a, .footer_cta_block2 .towitem span {width: auto !important;flex-grow: unset;padding: 10px 25px;font-size: 15px;line-height: 1;border-radius: 30px;}
 
-
+.towitem .formpopub {
+    background: #3F51B5;
+}
+.msvh_cta_buttons .towitem a, .msvh_cta_buttons .towitem span {
+    box-shadow: 0 0 7px 1px rgb(0 0 0 / 35%);
+}
 .cta-block-editor .footer_CTA2 {
     position: relative;
     display: block;
@@ -575,7 +581,7 @@ span.closepop {
 .steps-cta {
   margin-top: 30px;
   text-align: center;
-}
+} 
 
 .cta-button {
   display: inline-block;
@@ -587,6 +593,7 @@ span.closepop {
   text-decoration: none;
   font-size: 16px;
   transition: background 0.3s;
+  cursor: pointer;
 }
 
 .cta-button:hover {
@@ -602,13 +609,18 @@ span.closepop {
 
 
 
-
-
-.custom-contact-bar.inview {
+.custom-contact-bar {
     position: sticky;
     top: 0;
     z-index: 99;
 }
+
+.custom-contact-bar.inview {
+    position: unset;
+    top: 0;
+    z-index: unset;
+}
+
 .custom-contact-bar, .contact-buttons {
     text-align: center;
     height: 40px;
@@ -628,6 +640,7 @@ span.closepop {
     color: inherit;
     display: flex
 ;
+cursor: pointer;
     font-size: 14px;
     font-weight: 700;
     gap: 8px;

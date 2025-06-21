@@ -4,7 +4,7 @@ function render_arabic_steps_block($attributes) {
     $title       = esc_html($attributes['widgetTitle'] ?? 'امتلك عقارك بخطوات بسيطة');
     $cta_text    = esc_html($attributes['ctaText'] ?? 'سجل اهتمامك');
     $cta_link    = esc_url($attributes['ctaLink'] ?? '#');
-    $cta_bg      = esc_attr($attributes['ctaBgColor'] ?? '#007cba');
+    $cta_bg      = esc_attr($attributes['ctaBgColor'] ?? '#3f51b5');
     $cta_textcol = esc_attr($attributes['ctaTextColor'] ?? '#ffffff');
 
     $steps = [
@@ -50,13 +50,13 @@ function render_arabic_steps_block($attributes) {
                 </div>
 
                 <div class="steps-cta">
-                    <a 
-                        href="<?php echo $cta_link; ?>" 
-                        class="cta-button"
-                        style="background-color: <?php echo $cta_bg; ?>; color: <?php echo $cta_textcol; ?>; padding: 10px 20px; text-decoration: none; display: inline-block; border-radius: 5px;"
+                    <span 
+                        data-url="<?php echo $cta_link; ?>" 
+                        class="cta-button holdbrshor"
+                        style="background-color: <?php echo $cta_bg; ?>; color: <?php echo $cta_textcol; ?>;"
                     >
                         <?php echo $cta_text; ?>
-                    </a>
+                    </span>
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@ add_action('init', function () {
             'widgetTitle'    => ['type' => 'string', 'default' => 'امتلك عقارك بخطوات بسيطة'],
             'ctaText'        => ['type' => 'string', 'default' => 'سجل اهتمامك'],
             'ctaLink'        => ['type' => 'string', 'default' => '#'],
-            'ctaBgColor'     => ['type' => 'string', 'default' => '#007cba'],
+            'ctaBgColor'     => ['type' => 'string', 'default' => '#3f51b5'],
             'ctaTextColor'   => ['type' => 'string', 'default' => '#ffffff'],
         ],
         'render_callback' => 'render_arabic_steps_block'

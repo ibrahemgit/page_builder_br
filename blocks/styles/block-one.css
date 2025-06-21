@@ -735,7 +735,7 @@ footer.ib_footer {
     justify-content: center;
 }
 
-.towitem a {
+.towitem a, .towitem span {
     padding: 10px;
     background: #eee;
     color: #fff;
