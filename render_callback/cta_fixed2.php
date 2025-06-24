@@ -45,7 +45,7 @@ function footer_cta_block_render2($attributes) {
                     <span><?php echo $titleText; ?></span>
                 </div>
                 <div class="towitem">
-                    <a id="cta_whats" target="_blank" class="whatsapp" href="https://wa.me/<?php echo esc_attr($whatsNumber); ?>?text=أرغب في معرفة المزيد عن <?php echo esc_html($post_title); ?>">
+                    <a id="cta_whats" target="_blank" class="whatsapp" href="https://wa.me/+2<?php echo esc_attr($whatsNumber); ?>?text=أرغب في معرفة المزيد عن <?php echo esc_html($post_title); ?>">
                         <i class="fa fa-whatsapp" aria-hidden="true"></i> واتساب
                     </a>
                     <span id="subform" class='subform'>
