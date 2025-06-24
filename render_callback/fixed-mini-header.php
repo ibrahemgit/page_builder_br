@@ -1,7 +1,7 @@
 <?php
 
 function render_contact_bar_block($attributes) {
-    $bg = esc_attr($attributes['backgroundColor'] ?? '#222');
+    $bg = esc_attr($attributes['backgroundColor'] ?? '#1d2327');
     $text = esc_attr($attributes['textColor'] ?? '#fff');
 
     $post_id = get_the_ID();
@@ -30,8 +30,8 @@ function render_contact_bar_block($attributes) {
     <div class="custom-contact-bar" style="background-color: <?php echo $bg ?>; color: <?php echo $text ?>;">
         <div class='container'>
             <div class="contact-buttons">
-                <a href="https://wa.me/<?php echo esc_attr($whatsNumber); ?>" class="contact-btn"><i class="fa fa-whatsapp"></i> واتساب</a>
-                <a href="tel:<?php echo esc_attr($phoneNumber); ?>" class="contact-btn"><i class="fa fa-phone"></i> اتصل بنا</a>
+                <a href="https://wa.me/<?php echo esc_attr($whatsNumber); ?>" class="contact-btn whatsapp"><i class="fa fa-whatsapp"></i> واتساب</a>
+                <a href="tel:<?php echo esc_attr($phoneNumber); ?>" class="contact-btn phone"><i class="fa fa-phone"></i> اتصل بنا</a>
                 <span class="contact-btn openform"><i class="fa fa-envelope-open-o"></i> احجز وحدتك</span>
             </div>
         </div>
@@ -43,7 +43,7 @@ function render_contact_bar_block($attributes) {
 add_action('init', function () {
     register_block_type('custom/contact-bar', [
         'attributes' => [
-            'backgroundColor' => ['type' => 'string', 'default' => '#222'],
+            'backgroundColor' => ['type' => 'string', 'default' => '#1d2327'],
             'textColor'       => ['type' => 'string', 'default' => '#fff'],
         ],
         'render_callback' => 'render_contact_bar_block'

@@ -9,7 +9,7 @@ registerBlockType('custom/contact-bar', {
     category: 'custom-CTA',
 
     attributes: {
-        backgroundColor: { type: 'string', default: '#222' },
+        backgroundColor: { type: 'string', default: '#1d2327' },
         textColor: { type: 'string', default: '#fff' }
     },
 
