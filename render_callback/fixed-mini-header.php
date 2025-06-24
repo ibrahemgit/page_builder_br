@@ -30,7 +30,7 @@ function render_contact_bar_block($attributes) {
     <div class="custom-contact-bar" style="background-color: <?php echo $bg ?>; color: <?php echo $text ?>;">
         <div class='container'>
             <div class="contact-buttons">
-                <a href="https://wa.me/+2<?php echo esc_attr($whatsNumber); ?>" class="contact-btn"><i class="fa fa-whatsapp"></i> واتساب</a>
+                <a href="https://wa.me/<?php echo esc_attr($whatsNumber); ?>" class="contact-btn"><i class="fa fa-whatsapp"></i> واتساب</a>
                 <a href="tel:<?php echo esc_attr($phoneNumber); ?>" class="contact-btn"><i class="fa fa-phone"></i> اتصل بنا</a>
                 <span class="contact-btn openform"><i class="fa fa-envelope-open-o"></i> احجز وحدتك</span>
             </div>
