@@ -41,7 +41,7 @@
 .msvh_logo img {
   height: 80px;
   width: auto;
-  filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1) drop-shadow(1px 3px 3px rgba(0,0,0,.35));
   margin: 0 auto;
 }
 
