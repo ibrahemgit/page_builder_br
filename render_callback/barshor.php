@@ -2,27 +2,27 @@
 
 function render_arabic_steps_block($attributes) {
     $title       = esc_html($attributes['widgetTitle'] ?? 'امتلك عقارك بخطوات بسيطة');
-    $cta_text    = esc_html($attributes['ctaText'] ?? 'سجل اهتمامك');
+    $cta_text    = esc_html($attributes['ctaText'] ?? 'سجل الان');
     $cta_link    = esc_url($attributes['ctaLink'] ?? '#');
     $cta_bg      = esc_attr($attributes['ctaBgColor'] ?? '#3f51b5');
     $cta_textcol = esc_attr($attributes['ctaTextColor'] ?? '#ffffff');
 
     $steps = [
         [
-            'title' => 'سجّل اهتمامك',
-            'desc'  => 'املأ النموذج وسيقوم فريقنا بالتواصل معك.'
+            'title' => 'سجل اهتمامك',
+            'desc'  => 'املأ النموذج وسجل بياناتك.'
         ],
         [
-            'title' => 'احجز وحدتك',
-            'desc'  => 'اختر العقار المناسب وادفع عربون الحجز.'
+            'title' => 'التواصل',
+            'desc'  => 'سيتم التواصل معك من خلال فريقنا.'
         ],
         [
-            'title' => 'تابع خطة الدفع',
-            'desc'  => 'ادفع حسب الجدول المالي المحدد للمشروع.'
+            'title' => 'اختر وحدتك وخطة السداد',
+            'desc'  => 'اختار الوحدة مع خطة السداد المناسبة لك.'
         ],
         [
-            'title' => 'استلم العقار',
-            'desc'  => 'عند الانتهاء من المشروع، يصبح عقارك جاهزًا للتسليم.'
+            'title' => 'استلم وحدتك',
+            'desc'  => 'عند الإنتهاء من المشروع، تصبح وحدتك جاهزة للاستلام.'
         ]
     ];
 
@@ -69,7 +69,7 @@ add_action('init', function () {
     register_block_type('custom/arabic-steps', [
         'attributes' => [
             'widgetTitle'    => ['type' => 'string', 'default' => 'امتلك عقارك بخطوات بسيطة'],
-            'ctaText'        => ['type' => 'string', 'default' => 'سجل اهتمامك'],
+            'ctaText'        => ['type' => 'string', 'default' => 'سجل الان'],
             'ctaLink'        => ['type' => 'string', 'default' => '#'],
             'ctaBgColor'     => ['type' => 'string', 'default' => '#3f51b5'],
             'ctaTextColor'   => ['type' => 'string', 'default' => '#ffffff'],
