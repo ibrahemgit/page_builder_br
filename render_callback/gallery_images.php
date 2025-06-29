@@ -1,6 +1,6 @@
 <?php 
 function gallery_images_block_render($attributes) {
-    $gallery_title = isset($attributes['galleryTitle']) ? esc_html($attributes['galleryTitle']) : 'أهم المطورين';
+    $gallery_title = isset($attributes['galleryTitle']) ? esc_html($attributes['galleryTitle']) : 'صور المشروع';
     $images = isset($attributes['images']) ? $attributes['images'] : [];
 
     ob_start();
@@ -12,7 +12,7 @@ function gallery_images_block_render($attributes) {
                 <?php
                 if (!empty($images)) {
                     foreach ($images as $image_url) {
-                        echo '<img loading="lazy" decoding="async" src="' . esc_url($image_url) . '" alt="صورة المعرض">';
+                        echo '<img loading="lazy" decoding="async" src="' . esc_url($image_url) . '" alt="صورة ">';
                     }
                 }
                 ?>
@@ -27,7 +27,7 @@ function gallery_images_block_render($attributes) {
 register_block_type('custom/gallery-images', array(
     'render_callback' => 'gallery_images_block_render',
     'attributes' => array(
-        'galleryTitle' => array('type' => 'string', 'default' => 'أهم المطورين'),
+        'galleryTitle' => array('type' => 'string', 'default' => 'صور المشروع'),
         'images' => array('type' => 'array', 'default' => [])
     ),
 ));
