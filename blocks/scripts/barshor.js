@@ -1,26 +1,9 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { TextControl } from '@wordpress/components';
-import { InspectorControls , PanelColorSettings  } from '@wordpress/block-editor';
+import { InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
 import { PanelBody } from '@wordpress/components';
 import { Fragment } from '@wordpress/element';
-const steps = [
-    {
-        title: 'سجّل اهتمامك',
-        desc: 'املأ النموذج وسيقوم فريقنا بالتواصل معك.'
-    },
-    {
-        title: 'احجز وحدتك',
-        desc: 'اختر العقار المناسب وادفع عربون الحجز.'
-    },
-    {
-        title: 'تابع خطة الدفع',
-        desc: 'ادفع حسب الجدول المالي المحدد للمشروع.'
-    },
-    {
-        title: 'استلم العقار',
-        desc: 'عند الانتهاء من المشروع، يصبح عقارك جاهزًا للتسليم.'
-    }
-];
+
 registerBlockType('custom/arabic-steps', {
     title: 'البرشور',
     icon: 'list-view',
@@ -31,14 +14,26 @@ registerBlockType('custom/arabic-steps', {
         ctaText: { type: 'string', default: 'سجل اهتمامك' },
         ctaLink: { type: 'string', default: '#' },
         ctaBgColor: { type: 'string', default: '#3f51b5' },
-        ctaTextColor: { type: 'string', default: '#ffffff' }
+        ctaTextColor: { type: 'string', default: '#ffffff' },
+        steps: {
+            type: 'array',
+            default: [
+                { title: 'سجّل اهتمامك', desc: 'املأ النموذج وسيقوم فريقنا بالتواصل معك.' },
+                { title: 'احجز وحدتك', desc: 'اختر العقار المناسب وادفع عربون الحجز.' },
+                { title: 'تابع خطة الدفع', desc: 'ادفع حسب الجدول المالي المحدد للمشروع.' },
+                { title: 'استلم العقار', desc: 'عند الانتهاء من المشروع، يصبح عقارك جاهزًا للتسليم.' }
+            ]
+        }
     },
 
-
-
-
     edit: ({ attributes, setAttributes }) => {
-        const { widgetTitle, ctaText, ctaLink } = attributes;
+        const { widgetTitle, ctaText, ctaLink, ctaBgColor, ctaTextColor, steps } = attributes;
+
+        const updateStep = (index, field, value) => {
+            const newSteps = [...steps];
+            newSteps[index][field] = value;
+            setAttributes({ steps: newSteps });
+        };
 
         return (
             <Fragment>
@@ -54,11 +49,11 @@ registerBlockType('custom/arabic-steps', {
                             value={ctaText}
                             onChange={(value) => setAttributes({ ctaText: value })}
                         />
-                        <TextControl
+                        {/* <TextControl
                             label="رابط الزر"
                             value={ctaLink}
                             onChange={(value) => setAttributes({ ctaLink: value })}
-                        />
+                        /> */}
                     </PanelBody>
 
                     <PanelColorSettings
@@ -66,19 +61,33 @@ registerBlockType('custom/arabic-steps', {
                         initialOpen={false}
                         colorSettings={[
                             {
-                                value: attributes.ctaBgColor,
+                                value: ctaBgColor,
                                 onChange: (value) => setAttributes({ ctaBgColor: value }),
                                 label: 'لون الخلفية'
                             },
                             {
-                                value: attributes.ctaTextColor,
+                                value: ctaTextColor,
                                 onChange: (value) => setAttributes({ ctaTextColor: value }),
                                 label: 'لون النص'
                             }
                         ]}
                     />
-                </InspectorControls>
 
+                    {steps.map((step, index) => (
+                        <PanelBody title={`الخطوة ${index + 1}`} initialOpen={false} key={index}>
+                            <TextControl
+                                label="عنوان الخطوة"
+                                value={step.title}
+                                onChange={(value) => updateStep(index, 'title', value)}
+                            />
+                            <TextControl
+                                label="وصف الخطوة"
+                                value={step.desc}
+                                onChange={(value) => updateStep(index, 'desc', value)}
+                            />
+                        </PanelBody>
+                    ))}
+                </InspectorControls>
 
                 <div className="arabic-steps-widget prev">
                     <div className="headline sm_title shorttitle">
@@ -92,8 +101,8 @@ registerBlockType('custom/arabic-steps', {
                                     <div
                                         className="step-circle"
                                         style={{
-                                            color: attributes.ctaBgColor,
-                                            borderColor: attributes.ctaBgColor
+                                            color: ctaBgColor,
+                                            borderColor: ctaBgColor
                                         }}
                                     >
                                         {index + 1}
@@ -106,8 +115,23 @@ registerBlockType('custom/arabic-steps', {
                             </div>
                         ))}
                     </div>
-                    <div class="steps-cta"><a className="cta-button" href={ctaLink} style={{backgroundColor: attributes.ctaBgColor,color: attributes.ctaTextColor,padding: '10px 20px',textDecoration: 'none',display: 'inline-block',borderRadius: '5px'}}>{ctaText}</a></div>
-                    
+
+                    <div className="steps-cta">
+                        <a
+                            className="cta-button"
+                            href={ctaLink}
+                            style={{
+                                backgroundColor: ctaBgColor,
+                                color: ctaTextColor,
+                                padding: '10px 20px',
+                                textDecoration: 'none',
+                                display: 'inline-block',
+                                borderRadius: '5px'
+                            }}
+                        >
+                            {ctaText}
+                        </a>
+                    </div>
                 </div>
             </Fragment>
         );

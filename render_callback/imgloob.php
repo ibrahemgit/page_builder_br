@@ -19,6 +19,7 @@ function custom_gallery_block_render($attributes) {
             </div>
         </div>
     </div>
+    
     <?php
     return ob_get_clean();
 }

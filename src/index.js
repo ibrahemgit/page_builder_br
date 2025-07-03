@@ -17,8 +17,11 @@ import '../blocks/scripts/barshor.js';
 import '../blocks/scripts/fixed-mini-header.js';
 import '../blocks/scripts/new-hero-header.js';
 
+import '../blocks/scripts/iccards.js';
+
 import '../blocks/styles/block-one.css';
 import '../blocks/styles/block-two.css';
 import '../blocks/styles/hero-header-new.css';
 import '../blocks/styles/ficons.css';
+import '../blocks/styles/newstyle.css';
 import '../blocks/styles/responsive.css';

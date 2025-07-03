@@ -65,6 +65,8 @@ require_once plugin_dir_path(__FILE__) . 'render_callback/barshor.php';
 require_once plugin_dir_path(__FILE__) . 'render_callback/fixed-mini-header.php';
 require_once plugin_dir_path(__FILE__) . 'render_callback/ultimate_hero_header.php';
 
+require_once plugin_dir_path(__FILE__) . 'render_callback/iccards.php';
+
 
 /* جروب بلوكات جديد */
 function override_block_categories($categories) {
@@ -113,6 +115,7 @@ function remove_all_default_blocks($allowed_block_types, $editor_context) {
         'custom/arabic-steps',
         'custom/contact-bar',
         'custom/hero-header',
+        'custom/units-grid',
     );
 
     return $allowed_blocks;

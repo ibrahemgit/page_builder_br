@@ -77,7 +77,7 @@ function render_hero_header_block($attributes) {
             <?php if ($enableForm): ?>
                 <div class="<?php echo esc_attr($form_class); ?>">
                     <?php if (!empty($formTitle)): ?>
-                        <h2 class="msvh_form-title"><?php echo $formTitle; ?></h2>
+                        <h3 class="msvh_form-title"><?php echo $formTitle; ?></h3>
                     <?php endif; ?>
                     <form class="msvh_form contact_us" method="post" action="#">
                         <input type="text" name="name" placeholder="الاسم بالكامل" required />

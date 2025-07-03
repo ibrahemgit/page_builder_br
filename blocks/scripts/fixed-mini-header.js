@@ -9,7 +9,7 @@ registerBlockType('custom/contact-bar', {
     category: 'custom-CTA',
 
     attributes: {
-        backgroundColor: { type: 'string', default: '#1d2327' },
+        backgroundColor: { type: 'string', default: '#fff' },
         textColor: { type: 'string', default: '#fff' }
     },
 
@@ -38,9 +38,9 @@ registerBlockType('custom/contact-bar', {
 
                 <div className="custom-contact-bar inview" style={{ backgroundColor, color: textColor, textAlign: 'center' }}>
                     <div className="contact-buttons">
-                        <span className='contact-btn' style={{ margin: '0 10px' }}> <i className="fa fa-whatsapp"></i> واتساب </span>
-                        <span className='contact-btn' style={{ margin: '0 10px' }}> <i className="fa fa-phone"></i> اتصل بنا </span>
-                        <span className='contact-btn' style={{ margin: '0 10px' }}> <i className="fa fa-envelope-open-o"></i> احجز وحدتك </span>
+                        <span className='contact-btn whatsapp' style={{ margin: '0 10px' }}> <i className="fa fa-whatsapp"></i> واتساب </span>
+                        <span className='contact-btn phone' style={{ margin: '0 10px' }}> <i className="fa fa-phone"></i> اتصل بنا </span>
+                        <span className='contact-btn openform' style={{ margin: '0 10px' }}> <i className="fa fa-envelope-open-o"></i> احجز وحدتك </span>
                     </div>
                 </div>
             </Fragment>

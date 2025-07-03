@@ -12,13 +12,16 @@ function gallery_images_block_render($attributes) {
                 <?php
                 if (!empty($images)) {
                     foreach ($images as $image_url) {
-                        echo '<img loading="lazy" decoding="async" src="' . esc_url($image_url) . '" alt="صورة ">';
+                        echo '<img loading="lazy" decoding="async" src="' . esc_url($image_url) . '" alt="صور">';
                     }
                 }
                 ?>
             </div>
         </div>
     </div>
+    <script>
+        var lightboximg = <?php echo json_encode(array_map('esc_url', $images)); ?>;
+    </script>
     <?php
     return ob_get_clean();
 }

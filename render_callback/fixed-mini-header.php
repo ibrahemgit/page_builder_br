@@ -1,7 +1,7 @@
 <?php
 
 function render_contact_bar_block($attributes) {
-    $bg = esc_attr($attributes['backgroundColor'] ?? '#1d2327');
+    $bg = esc_attr($attributes['backgroundColor'] ?? '#fff');
     $text = esc_attr($attributes['textColor'] ?? '#fff');
 
     $post_id = get_the_ID();
@@ -43,7 +43,7 @@ function render_contact_bar_block($attributes) {
 add_action('init', function () {
     register_block_type('custom/contact-bar', [
         'attributes' => [
-            'backgroundColor' => ['type' => 'string', 'default' => '#1d2327'],
+            'backgroundColor' => ['type' => 'string', 'default' => '#fff'],
             'textColor'       => ['type' => 'string', 'default' => '#fff'],
         ],
         'render_callback' => 'render_contact_bar_block'
