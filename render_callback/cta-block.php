@@ -27,9 +27,18 @@ function custom_cta_block_render($attributes) {
     $attr_phone = isset($attributes['phoneNumber']) ? esc_html($attributes['phoneNumber']) : '';
     $attr_whats = isset($attributes['whatsNumber']) ? esc_html($attributes['whatsNumber']) : '';
 
-    // تحديد النهائي
-    $phoneNumber  = !empty($post_phone) ? $post_phone : (!empty($option_phone) ? $option_phone : $attr_phone);
-    $whatsNumber  = !empty($post_whats) ? $post_whats : (!empty($option_whats) ? $option_whats : $attr_whats);
+    // جلب القيم من الرابط إن وُجدت
+    $phone_from_url = isset($_GET['phone']) ? sanitize_phone_number($_GET['phone']) : null;
+    $whats_from_url = isset($_GET['whats']) ? sanitize_phone_number($_GET['whats']) : null;
+
+    // تحديد الرقم النهائي بالأولوية
+    $phoneNumber = !empty($phone_from_url)
+        ? $phone_from_url
+        : (!empty($post_phone) ? $post_phone : (!empty($option_phone) ? $option_phone : $attr_phone));
+
+    $whatsNumber = !empty($whats_from_url)
+        ? $whats_from_url
+        : (!empty($post_whats) ? $post_whats : (!empty($option_whats) ? $option_whats : $attr_whats));
 
     $post_title = $post_id ? get_the_title($post_id) : 'المعرض';
 

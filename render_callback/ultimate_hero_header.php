@@ -40,9 +40,18 @@ function render_hero_header_block($attributes) {
     $attr_phone = '';
     $attr_whats = '';
 
-    // تحديد النهائي
-    $phoneNumber  = !empty($post_phone) ? $post_phone : (!empty($option_phone) ? $option_phone : $attr_phone);
-    $whatsNumber  = !empty($post_whats) ? $post_whats : (!empty($option_whats) ? $option_whats : $attr_whats);
+    // جلب القيم من الرابط إن وُجدت
+    $phone_from_url = isset($_GET['phone']) ? sanitize_phone_number($_GET['phone']) : null;
+    $whats_from_url = isset($_GET['whats']) ? sanitize_phone_number($_GET['whats']) : null;
+
+    // تحديد الرقم النهائي
+    $phoneNumber = !empty($phone_from_url)
+        ? $phone_from_url
+        : (!empty($post_phone) ? $post_phone : (!empty($option_phone) ? $option_phone : $attr_phone));
+
+    $whatsNumber = !empty($whats_from_url)
+        ? $whats_from_url
+        : (!empty($post_whats) ? $post_whats : (!empty($option_whats) ? $option_whats : $attr_whats));
 
     $post_title = $post_id ? get_the_title($post_id) : 'المعرض';
 

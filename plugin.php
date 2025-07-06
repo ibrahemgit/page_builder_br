@@ -144,3 +144,12 @@ function enqueue_faq_block_assets() {
     wp_enqueue_media(); // ضروري لفتح Media Library داخل بلوك جوتنبرج
 }
 add_action('enqueue_block_editor_assets', 'enqueue_faq_block_assets');
+function sanitize_phone_number($number) {
+    // السماح بـ + في البداية فقط + أرقام فقط بعد كده
+    $number = trim($number);
+    if (substr($number, 0, 1) === '+') {
+        return '+' . preg_replace('/[^0-9]/', '', substr($number, 1));
+    } else {
+        return preg_replace('/[^0-9]/', '', $number);
+    }
+}
