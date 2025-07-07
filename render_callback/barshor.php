@@ -37,21 +37,35 @@ function render_arabic_steps_block($attributes) {
                 </div>
 
                 <div class="steps-row">
-                    <?php foreach ($steps as $index => $step): ?>
-                        <?php
-                            $step_title = esc_html($step['title'] ?? '');
-                            $step_desc  = esc_html($step['desc'] ?? '');
-                        ?>
+                    <?php
+                    $visible_index = 0; // لترقيم الدوائر بشكل صحيح بعد إخفاء الفارغ
+                    foreach ($steps as $step):
+                        $step_title_raw = $step['title'] ?? '';
+                        $step_desc_raw  = $step['desc'] ?? '';
+
+                        // لو العنوان والوصف فاضيين → تجاهل العرض
+                        if (trim($step_title_raw) === '' && trim($step_desc_raw) === '') {
+                            continue;
+                        }
+
+                        $step_title = esc_html($step_title_raw);
+                        $step_desc  = esc_html($step_desc_raw);
+                    ?>
                         <div class="step-wrapper">
                             <div class="step-item">
-                                <div style="border-color: <?php echo $cta_bg; ?>; color: <?php echo $cta_bg; ?>;" class="step-circle"><?php echo $index + 1; ?></div>
+                                <div style="border-color: <?php echo $cta_bg; ?>; color: <?php echo $cta_bg; ?>;" class="step-circle">
+                                    <?php echo $visible_index + 1; ?>
+                                </div>
                             </div>
                             <div class="step-label">
                                 <div class="step-label-title"><?php echo $step_title; ?></div>
                                 <div class="step-label-desc"><?php echo $step_desc; ?></div>
                             </div>
                         </div>
-                    <?php endforeach; ?>
+                    <?php
+                        $visible_index++;
+                    endforeach;
+                    ?>
                 </div>
 
                 <div class="steps-cta">

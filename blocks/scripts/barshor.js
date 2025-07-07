@@ -1,13 +1,21 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { TextControl } from '@wordpress/components';
-import { InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
-import { PanelBody } from '@wordpress/components';
+import {
+    InspectorControls,
+    PanelColorSettings
+} from '@wordpress/block-editor';
+import {
+    PanelBody,
+    TextControl
+} from '@wordpress/components';
 import { Fragment } from '@wordpress/element';
 
 registerBlockType('custom/arabic-steps', {
     title: 'البرشور',
     icon: 'list-view',
     category: 'custom-CTA',
+    supports: {
+        html: false
+    },
 
     attributes: {
         widgetTitle: { type: 'string', default: 'امتلك عقارك بخطوات بسيطة' },
@@ -30,9 +38,10 @@ registerBlockType('custom/arabic-steps', {
         const { widgetTitle, ctaText, ctaLink, ctaBgColor, ctaTextColor, steps } = attributes;
 
         const updateStep = (index, field, value) => {
-            const newSteps = [...steps];
-            newSteps[index][field] = value;
-            setAttributes({ steps: newSteps });
+            const updatedSteps = steps.map((step, i) =>
+                i === index ? { ...step, [field]: value } : step
+            );
+            setAttributes({ steps: updatedSteps });
         };
 
         return (
@@ -49,11 +58,11 @@ registerBlockType('custom/arabic-steps', {
                             value={ctaText}
                             onChange={(value) => setAttributes({ ctaText: value })}
                         />
-                        {/* <TextControl
+                        <TextControl
                             label="رابط الزر"
                             value={ctaLink}
                             onChange={(value) => setAttributes({ ctaLink: value })}
-                        /> */}
+                        />
                     </PanelBody>
 
                     <PanelColorSettings
@@ -89,32 +98,36 @@ registerBlockType('custom/arabic-steps', {
                     ))}
                 </InspectorControls>
 
+                {/* لا تعديل على HTML أو الكلاسات */}
                 <div className="arabic-steps-widget prev">
                     <div className="headline sm_title shorttitle">
                         <span>{widgetTitle}</span>
                     </div>
 
                     <div className="steps-row">
-                        {steps.map((step, index) => (
-                            <div className="step-wrapper" key={index}>
-                                <div className="step-item">
-                                    <div
-                                        className="step-circle"
-                                        style={{
-                                            color: ctaBgColor,
-                                            borderColor: ctaBgColor
-                                        }}
-                                    >
-                                        {index + 1}
+                        {steps
+                            .filter((step) => step.title.trim() || step.desc.trim())
+                            .map((step, index) => (
+                                <div className="step-wrapper" key={index}>
+                                    <div className="step-item">
+                                        <div
+                                            className="step-circle"
+                                            style={{
+                                                color: ctaBgColor,
+                                                borderColor: ctaBgColor
+                                            }}
+                                        >
+                                            {index + 1}
+                                        </div>
+                                    </div>
+                                    <div className="step-label">
+                                        <div className="step-label-title">{step.title}</div>
+                                        <div className="step-label-desc">{step.desc}</div>
                                     </div>
                                 </div>
-                                <div className="step-label">
-                                    <div className="step-label-title">{step.title}</div>
-                                    <div className="step-label-desc">{step.desc}</div>
-                                </div>
-                            </div>
-                        ))}
+                            ))}
                     </div>
+
 
                     <div className="steps-cta">
                         <a
@@ -137,5 +150,5 @@ registerBlockType('custom/arabic-steps', {
         );
     },
 
-    save: () => null // render_callback عبر PHP
+    save: () => null // الرندر يتم من خلال PHP
 });
