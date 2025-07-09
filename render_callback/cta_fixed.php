@@ -3,30 +3,57 @@
 function render_footer_cta_block($attributes) {
     $post_id = get_the_ID();
 
-    // 1. post meta
-    $post_phone = get_post_meta($post_id, 'contact_phone', true);
-    $post_whats = get_post_meta($post_id, 'contact_whatsapp', true);
+// ------------------
+// جلب أرقام إضافية عشوائية
+// ------------------
+$extra_phones = get_option('extra_phones', []);
+$extra_whatsapps = get_option('extra_whatsapps', []);
 
-    // 2. option
-    $option_phone = get_option('custom_phone');
-    $option_whats = get_option('custom_whatsapp');
+$random_extra_phone = !empty($extra_phones) ? $extra_phones[array_rand($extra_phones)] : null;
+$random_extra_whats = !empty($extra_whatsapps) ? $extra_whatsapps[array_rand($extra_whatsapps)] : null;
 
-    // 3. block attributes fallback
-    $attr_phone = !empty($attributes['phoneNumber']) ? esc_attr($attributes['phoneNumber']) : '';
-    $attr_whats = !empty($attributes['whatsNumber']) ? esc_attr($attributes['whatsNumber']) : '';
+// ------------------
+// باقي المصادر
+// ------------------
 
+// 1. post meta
+$post_phone = get_post_meta($post_id, 'contact_phone', true);
+$post_whats = get_post_meta($post_id, 'contact_whatsapp', true);
 
-    // جلب القيم من الرابط إن وُجدت
-    $phone_from_url = isset($_GET['phone']) ? sanitize_phone_number($_GET['phone']) : null;
-    $whats_from_url = isset($_GET['whats']) ? sanitize_phone_number($_GET['whats']) : null;
+// 2. option
+$option_phone = get_option('custom_phone');
+$option_whats = get_option('custom_whatsapp');
 
-    $phone_n = !empty($phone_from_url) 
-        ? $phone_from_url 
-        : (!empty($post_phone) ? $post_phone : (!empty($option_phone) ? $option_phone : $attr_phone));
+// 3. block attributes fallback
+$attr_phone = !empty($attributes['phoneNumber']) ? esc_attr($attributes['phoneNumber']) : '';
+$attr_whats = !empty($attributes['whatsNumber']) ? esc_attr($attributes['whatsNumber']) : '';
 
-    $whats_n = !empty($whats_from_url) 
-        ? $whats_from_url 
-        : (!empty($post_whats) ? $post_whats : (!empty($option_whats) ? $option_whats : $attr_whats));
+// ------------------
+// أولوية التحديد (بعد الترتيب الجديد)
+// ------------------
+$phone_n = !empty($post_phone)
+    ? $post_phone
+    : (
+        !empty($random_extra_phone)
+            ? $random_extra_phone
+            : (
+                !empty($option_phone)
+                    ? $option_phone
+                    : $attr_phone
+            )
+    );
+
+$whats_n = !empty($post_whats)
+    ? $post_whats
+    : (
+        !empty($random_extra_whats)
+            ? $random_extra_whats
+            : (
+                !empty($option_whats)
+                    ? $option_whats
+                    : $attr_whats
+            )
+    );
 
 
     $post_title = $post_id ? get_the_title($post_id) : 'المعرض';

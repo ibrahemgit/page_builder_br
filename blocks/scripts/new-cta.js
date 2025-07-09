@@ -1,6 +1,6 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { InspectorControls, ColorPalette } from '@wordpress/block-editor';
-import { PanelBody, TextControl, Button } from '@wordpress/components';
+import { InspectorControls } from '@wordpress/block-editor';
+import { PanelBody, TextControl, ToggleControl } from '@wordpress/components';
 
 registerBlockType('custom/cta-block', {
     title: 'CTA تواصل معنا',
@@ -11,6 +11,8 @@ registerBlockType('custom/cta-block', {
         titleText: { type: 'string', default: 'تواصل معنا لمزيد من التفاصيل' },
         phoneNumber: { type: 'string', default: '' },
         whatsNumber: { type: 'string', default: '' },
+        enableCTAPopup: { type: 'boolean', default: false },
+        ctaPopupText: { type: 'string', default: 'طلب عرض سعر' },
     },
 
     example: {
@@ -18,11 +20,13 @@ registerBlockType('custom/cta-block', {
             titleText: 'تواصل معنا الآن!',
             phoneNumber: '',
             whatsNumber: '',
+            enableCTAPopup: true,
+            ctaPopupText: 'طلب اتصال',
         }
     },
 
     edit: ({ attributes, setAttributes }) => {
-        const { titleText, ctaText, whatsNumber, phoneNumber } = attributes;
+        const { titleText, phoneNumber, whatsNumber, enableCTAPopup, ctaPopupText } = attributes;
 
         return (
             <div className="cta-block-editor">
@@ -33,11 +37,21 @@ registerBlockType('custom/cta-block', {
                             value={titleText}
                             onChange={(value) => setAttributes({ titleText: value })}
                         />
-                       
+                        <ToggleControl
+                            label="تفعيل زر البوب اب"
+                            checked={enableCTAPopup}
+                            onChange={(value) => setAttributes({ enableCTAPopup: value })}
+                        />
+                        {enableCTAPopup && (
+                            <TextControl
+                                label="نص زر البوب اب"
+                                value={ctaPopupText}
+                                onChange={(value) => setAttributes({ ctaPopupText: value })}
+                            />
+                        )}
                     </PanelBody>
                 </InspectorControls>
 
-                {/* ✅ تطبيق الألوان في المعاينة */}
                 <div className="shortcodesection">
                     <div className="container">
                         <div className="custom_cta_shortcode">
@@ -45,13 +59,17 @@ registerBlockType('custom/cta-block', {
                                 <span>{titleText}</span>
                             </div>
                             <div className="towitem">
-                                
                                 <a id="cta_whats" target="_blank" className="whatsapp">
                                     <i className="fa fa-whatsapp" aria-hidden="true"></i> واتساب
                                 </a>
-                                <a id="cta_call" className="phone" >
+                                <a id="cta_call" className="phone">
                                     <i className="fa fa-phone" aria-hidden="true"></i> اتصال
                                 </a>
+                                {enableCTAPopup && (
+                                    <span id="cta_pop" className="formpopub openform">
+                                        <i className="fa fa-envelope-open-o" aria-hidden="true"></i> {ctaPopupText}
+                                    </span>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -60,7 +78,5 @@ registerBlockType('custom/cta-block', {
         );
     },
 
-    save: () => {
-        return null; // سيتم التعامل مع الريندر من خلال PHP
-    }
+    save: () => null // سيتم العرض من خلال render_callback
 });

@@ -66,6 +66,8 @@ require_once plugin_dir_path(__FILE__) . 'render_callback/fixed-mini-header.php'
 require_once plugin_dir_path(__FILE__) . 'render_callback/ultimate_hero_header.php';
 
 require_once plugin_dir_path(__FILE__) . 'render_callback/iccards.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/faq-accordion.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/reviews-block.php';
 
 
 /* جروب بلوكات جديد */
@@ -116,6 +118,8 @@ function remove_all_default_blocks($allowed_block_types, $editor_context) {
         'custom/contact-bar',
         'custom/hero-header',
         'custom/units-grid',
+        'custom/accordion-section',
+        'custom/review-block',
     );
 
     return $allowed_blocks;
@@ -128,13 +132,13 @@ function register_custom_pattern_category() {
     register_block_pattern_category(
         'ma3rd-patterns',
         array(
-            'label' => __( '📌 المعرض', 'text-domain' ), // ✅ اسم المجموعة التي ستظهر في قائمة الأنماط
+            'label' => __( '📌 A1', 'text-domain' ), // ✅ اسم المجموعة التي ستظهر في قائمة الأنماط
         )
     );
     register_block_pattern_category(
         'custom-patterns',
         array(
-            'label' => __( '📌 تخطيطات مخصصة', 'text-domain' ), // ✅ اسم المجموعة التي ستظهر في قائمة الأنماط
+            'label' => __( '📌 K1', 'text-domain' ), // ✅ اسم المجموعة التي ستظهر في قائمة الأنماط
         )
     );
 }
