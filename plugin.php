@@ -132,13 +132,13 @@ function register_custom_pattern_category() {
     register_block_pattern_category(
         'ma3rd-patterns',
         array(
-            'label' => __( '📌 A1', 'text-domain' ), // ✅ اسم المجموعة التي ستظهر في قائمة الأنماط
+            'label' => __( '📌 At', 'text-domain' ), // ✅ اسم المجموعة التي ستظهر في قائمة الأنماط
         )
     );
     register_block_pattern_category(
-        'custom-patterns',
+        'kt-patterns',
         array(
-            'label' => __( '📌 K1', 'text-domain' ), // ✅ اسم المجموعة التي ستظهر في قائمة الأنماط
+            'label' => __( '📌 Kt', 'text-domain' ), // ✅ اسم المجموعة التي ستظهر في قائمة الأنماط
         )
     );
 }

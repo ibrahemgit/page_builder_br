@@ -1,34 +1,32 @@
 <?php
 function register_custom_patterns() {
     register_block_pattern(
-        'custom/homepage-layout',
+        'custom/homepage-k1',
         array(
-            'title'       => __( 'تصميم الصفحة الرئيسية', 'text-domain' ),
-            'description' => __( 'تصميم متكامل باستخدام البلوكات المخصصة.', 'text-domain' ),
-            'categories'  => array( 'custom-patterns' ),
+            'title'       => __( ' K1 ', 'text-domain' ),
+            'description' => __( ' K1 ', 'text-domain' ),
+            'categories'  => array( 'kt-patterns' ),
             'content'     => '
-            
-<!-- wp:custom/contact-bar /-->
-
-<!-- wp:custom/hero-header {"enableForm":true,"enableFormStyle":false,"enableCTAPopup":false} /-->
-
-<!-- wp:custom/project-content-block {"reverseImage":true} /-->
-
-<!-- wp:custom/form-block /-->
-
-<!-- wp:custom/card-section {"cards":[{"title":"عنوان جديد","content":"وصف البطاقة","backgroundColor":"#1c2949","textColor":"#ffffff"},{"title":"عنوان جديد","content":"وصف البطاقة","backgroundColor":"#353b48","textColor":"#ffffff"},{"title":"عنوان جديد","content":"وصف البطاقة","backgroundColor":"#303952","textColor":"#ffffff"}]} /-->
-
-<!-- wp:custom/gallery-images /-->
-
-<!-- wp:custom/arabic-steps /-->
-
-<!-- wp:custom/form-block /-->
-
-<!-- wp:custom/footer-cta-block /-->
-
-',
+                <!-- wp:custom/contact-bar /-->
+                <!-- wp:custom/hero-header /-->
+                <!-- wp:custom/cta-block2 /-->
+                <!-- wp:custom/project-content-block /-->
+                <!-- wp:custom/cta-block2 /-->
+                <!-- wp:custom/project-content-block /-->
+                <!-- wp:custom/cta-block2 /-->
+                <!-- wp:custom/form-block /-->
+                <!-- wp:custom/cta-block2 /-->
+                <!-- wp:custom/card-section {"cards":[{"title":"عنوان جديد","content":"وصف البطاقة","backgroundColor":"#1E2D2F","textColor":"#ffffff"},{"title":"عنوان جديد","content":"وصف البطاقة","backgroundColor":"#1E2D2F","textColor":"#ffffff"},{"title":"عنوان جديد","content":"وصف البطاقة","backgroundColor":"#1E2D2F","textColor":"#ffffff"}]} /-->
+                <!-- wp:custom/cta-block2 /-->
+                <!-- wp:custom/gallery-images /-->
+                <!-- wp:custom/cta-block /-->
+                <!-- wp:custom/arabic-steps /-->
+                <!-- wp:custom/form-block /-->
+                <!-- wp:custom/footer-cta-block /-->
+            ',
         )
     );
+
 
 register_block_pattern(
         'custom/homepage-ma3rd',
@@ -39,7 +37,7 @@ register_block_pattern(
             'content'     => '
 <!-- wp:custom/contact-bar /-->
 
-<!-- wp:custom/hero-header {"enableForm":true,"logoAlign":"left","logoAbsolute":true,"formTitle":"سجل بياناتك الأن للحصول على العروض الحصرية","enableFormStyle":false,"enableCTAPopup":false} /-->
+<!-- wp:custom/hero-header {"enableForm":true,"logoAlign":"left","logoAbsolute":true,"enableFormStyle":false,"fullbort":true,"enableCTAPopup":false} /-->
 
 <!-- wp:custom/cta-block2 /-->
 

@@ -1,7 +1,11 @@
 <?php
 
 function render_hero_header_block($attributes) {
-    $backgroundImage = esc_url($attributes['backgroundImage'] ?? '');
+$backgroundType        = $attributes['backgroundType'] ?? 'image';
+$backgroundImage       = esc_url($attributes['backgroundImage'] ?? '');
+$backgroundVideo       = esc_url($attributes['backgroundVideo'] ?? '');
+$backgroundVideoUpload = esc_url($attributes['backgroundVideoUpload'] ?? '');
+
     $logoImage = esc_url($attributes['logoImage'] ?? '');
     $title = esc_html($attributes['title'] ?? '');
     $description = esc_html($attributes['description'] ?? '');
@@ -20,6 +24,11 @@ function render_hero_header_block($attributes) {
     $ctaCallText = esc_html($attributes['ctaCallText'] ?? 'اتصال');
     $ctaPopupText = esc_html($attributes['ctaPopupText'] ?? 'احجز وحدتك');
 
+    $hero_classes = 'msvh_hero-section';
+    if (!empty($attributes['fullbort'])) {
+        $hero_classes .= ' fullbort';
+    }
+
     $form_class = 'form_header_msvh';
     if (!$enableFormStyle) {
         $form_class .= ' WitBg';
@@ -27,54 +36,51 @@ function render_hero_header_block($attributes) {
 
     $post_id = get_the_ID();
 
-    // 1. post meta
+    // Post meta
     $post_phone = get_post_meta($post_id, 'contact_phone', true);
     $post_whats = get_post_meta($post_id, 'contact_whatsapp', true);
 
-    // 2. extra random numbers
+    // Extra fallback numbers
     $extra_phones     = get_option('extra_phones', []);
     $extra_whatsapps  = get_option('extra_whatsapps', []);
     $random_extra_phone = !empty($extra_phones) ? $extra_phones[array_rand($extra_phones)] : null;
     $random_extra_whats = !empty($extra_whatsapps) ? $extra_whatsapps[array_rand($extra_whatsapps)] : null;
 
-    // 3. general options
+    // Global options
     $option_phone = get_option('custom_phone');
     $option_whats = get_option('custom_whatsapp');
 
-    // 4. fallback
+    // Final phone/whatsapp
     $attr_phone = '';
     $attr_whats = '';
 
-    // الرقم النهائي حسب الترتيب
-    $phoneNumber = !empty($post_phone)
-        ? $post_phone
-        : (
-            !empty($random_extra_phone)
-                ? $random_extra_phone
-                : (
-                    !empty($option_phone)
-                        ? $option_phone
-                        : $attr_phone
-                )
-        );
-
-    $whatsNumber = !empty($post_whats)
-        ? $post_whats
-        : (
-            !empty($random_extra_whats)
-                ? $random_extra_whats
-                : (
-                    !empty($option_whats)
-                        ? $option_whats
-                        : $attr_whats
-                )
-        );
-
-    $post_title = $post_id ? get_the_title($post_id) : 'المعرض';
+    $phoneNumber = $post_phone ?: ($random_extra_phone ?: ($option_phone ?: $attr_phone));
+    $whatsNumber = $post_whats ?: ($random_extra_whats ?: ($option_whats ?: $attr_whats));
 
     ob_start();
     ?>
-    <div class="msvh_hero-section" style="background-image: url('<?php echo $backgroundImage; ?>');">
+
+    <div class="<?php echo esc_attr($hero_classes); ?>">
+
+
+ <?php if ($backgroundType === 'image' && $backgroundImage): ?>
+    <div class="background-image" style="background-image: url('<?php echo esc_url($backgroundImage); ?>');"></div>
+<?php elseif ($backgroundType === 'upload' && !empty($attributes['backgroundVideoUpload'])): ?>
+    <video class="background-video" autoplay muted loop playsinline>
+        <source src="<?php echo esc_url($attributes['backgroundVideoUpload']); ?>" type="video/mp4">
+    </video>
+<?php elseif ($backgroundType === 'youtube' && $backgroundVideo): ?>
+    <div class="background-youtube">
+        <iframe
+            src="https://www.youtube.com/embed/<?php echo esc_attr(get_youtube_id($backgroundVideo)); ?>?autoplay=1&mute=1&loop=1&playlist=<?php echo esc_attr(get_youtube_id($backgroundVideo)); ?>&controls=0&showinfo=0&modestbranding=1&rel=0&disablekb=1"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+        ></iframe>
+    </div>
+<?php endif; ?>
+
+
         <div class="msvh_overlay"></div>
 
         <div class="container msvh_content">
@@ -86,7 +92,7 @@ function render_hero_header_block($attributes) {
             <?php endif; ?>
 
             <?php if ($title || $description): ?>
-                <div class='msvh_content_sm'>
+                <div class="msvh_content_sm">
                     <?php if ($title): ?>
                         <div class="msvh_headline">
                             <h1><?php echo $title; ?></h1>
@@ -97,7 +103,7 @@ function render_hero_header_block($attributes) {
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
-            
+
             <?php if ($enableForm): ?>
                 <div class="<?php echo esc_attr($form_class); ?>">
                     <?php if (!empty($formTitle)): ?>
@@ -137,9 +143,9 @@ function render_hero_header_block($attributes) {
                 <div class="msvh_cards-wrapper">
                     <?php foreach ($cards as $card): ?>
                         <?php
-                            $card_title = esc_html($card['title'] ?? '');
-                            $card_desc = esc_html($card['description'] ?? '');
-                            if (empty($card_title) && empty($card_desc)) continue;
+                        $card_title = esc_html($card['title'] ?? '');
+                        $card_desc = esc_html($card['description'] ?? '');
+                        if (empty($card_title) && empty($card_desc)) continue;
                         ?>
                         <div class="msvh_card">
                             <?php if ($card_title): ?>
@@ -158,10 +164,21 @@ function render_hero_header_block($attributes) {
     return ob_get_clean();
 }
 
+// Helper function to extract YouTube ID
+function get_youtube_id($url) {
+    if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $url, $matches)) {
+        return $matches[1];
+    }
+    return '';
+}
+
 register_block_type('custom/hero-header', [
     'render_callback' => 'render_hero_header_block',
     'attributes' => [
+        'backgroundType'    => ['type' => 'string', 'default' => 'image'],
         'backgroundImage'   => ['type' => 'string', 'default' => ''],
+        'backgroundVideo'   => ['type' => 'string', 'default' => ''],
+        'backgroundVideoUpload' => ['type' => 'string', 'default' => ''],
         'logoImage'         => ['type' => 'string', 'default' => ''],
         'title'             => ['type' => 'string', 'default' => 'عنوان الهيدر'],
         'description'       => ['type' => 'string', 'default' => 'وصف الهيدر هنا'],
@@ -170,15 +187,13 @@ register_block_type('custom/hero-header', [
         'logoAbsolute'      => ['type' => 'boolean', 'default' => false],
         'formTitle'         => ['type' => 'string', 'default' => 'تواصل معنا'],
         'enableFormStyle'   => ['type' => 'boolean', 'default' => true],
-
-        // CTA Buttons
+        'fullbort'          => ['type' => 'boolean', 'default' => false],
         'enableCTAWhatsapp' => ['type' => 'boolean', 'default' => true],
         'enableCTACall'     => ['type' => 'boolean', 'default' => true],
         'enableCTAPopup'    => ['type' => 'boolean', 'default' => true],
         'ctaWhatsappText'   => ['type' => 'string', 'default' => 'واتساب'],
         'ctaCallText'       => ['type' => 'string', 'default' => 'اتصال'],
         'ctaPopupText'      => ['type' => 'string', 'default' => 'احجز وحدتك'],
-
         'cards'             => ['type' => 'array', 'default' => []],
     ]
 ]);
