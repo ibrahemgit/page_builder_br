@@ -72,9 +72,6 @@
     margin-bottom: 0
 }
 
-.image-container img {
-    height: 80px;
-}
 
 .videos-container {
     display: flex;
@@ -501,8 +498,8 @@ span.closepop {
   justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
-  gap: 30px;
-  margin-bottom: 50px;
+  gap: 25px;
+  margin-bottom: 40px;
 }
 
 .step-wrapper {
@@ -669,3 +666,9 @@ cursor: pointer;
 
 
 
+
+
+.image-container img {
+    height: 80px;
+    min-height: unset !important;
+}

@@ -1,0 +1,55 @@
+.form-card {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.registration-form.contact_us , form.registration-form.contact_us .form-row {
+    display: grid;
+    gap: 20px;
+}
+
+
+form.registration-form.contact_us .form-row {
+    grid-template-columns: 1fr 1fr;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+label.field-label {
+    font-size: 16px;
+}
+
+
+.form-field .field-input , .form-field .field-select {
+    padding: 10px 15px;
+    border: 0;
+    border-radius: 5px;
+    direction: rtl;
+    border: 1px solid;
+}
+
+
+.price-field {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 0;
+}
+
+small.price-helper {
+    font-size: 12px;
+    opacity: .8;
+}
+button.submit-button {
+    padding: 7px 15px;
+    font-size: 18px;
+    max-width: 230px;
+    border: 0;
+    border-radius: 30px;
+}

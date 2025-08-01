@@ -1,13 +1,17 @@
 <?php
 
 function render_hero_header_block($attributes) {
-$backgroundType        = $attributes['backgroundType'] ?? 'image';
-$backgroundImage       = esc_url($attributes['backgroundImage'] ?? '');
-$backgroundVideo       = esc_url($attributes['backgroundVideo'] ?? '');
-$backgroundVideoUpload = esc_url($attributes['backgroundVideoUpload'] ?? '');
+    $backgroundType        = $attributes['backgroundType'] ?? 'image';
+    $backgroundImage       = esc_url($attributes['backgroundImage'] ?? '');
+    $backgroundVideo       = esc_url($attributes['backgroundVideo'] ?? '');
+    $backgroundVideoUpload = esc_url($attributes['backgroundVideoUpload'] ?? '');
+    $backgroundColor       = esc_attr($attributes['backgroundColor'] ?? '#1e1e1e'); // ✅ جديد
 
     $logoImage = esc_url($attributes['logoImage'] ?? '');
     $title = esc_html($attributes['title'] ?? '');
+
+    $subtitle = esc_html($attributes['subtitle'] ?? ''); // ✅ جديد
+
     $description = esc_html($attributes['description'] ?? '');
     $enableForm = $attributes['enableForm'] ?? false;
     $logoAbsolute = $attributes['logoAbsolute'] ?? false;
@@ -62,24 +66,25 @@ $backgroundVideoUpload = esc_url($attributes['backgroundVideoUpload'] ?? '');
 
     <div class="<?php echo esc_attr($hero_classes); ?>">
 
-
- <?php if ($backgroundType === 'image' && $backgroundImage): ?>
-    <div class="background-image" style="background-image: url('<?php echo esc_url($backgroundImage); ?>');"></div>
-<?php elseif ($backgroundType === 'upload' && !empty($attributes['backgroundVideoUpload'])): ?>
-    <video class="background-video" autoplay muted loop playsinline>
-        <source src="<?php echo esc_url($attributes['backgroundVideoUpload']); ?>" type="video/mp4">
-    </video>
-<?php elseif ($backgroundType === 'youtube' && $backgroundVideo): ?>
-    <div class="background-youtube">
-        <iframe
-            src="https://www.youtube.com/embed/<?php echo esc_attr(get_youtube_id($backgroundVideo)); ?>?autoplay=1&mute=1&loop=1&playlist=<?php echo esc_attr(get_youtube_id($backgroundVideo)); ?>&controls=0&showinfo=0&modestbranding=1&rel=0&disablekb=1"
-            frameborder="0"
-            allow="autoplay; encrypted-media"
-            allowfullscreen
-        ></iframe>
-    </div>
-<?php endif; ?>
-
+        <?php if ($backgroundType === 'image' && $backgroundImage): ?>
+            <div class="background-image" style="background-image: url('<?php echo esc_url($backgroundImage); ?>');"></div>
+        <?php elseif ($backgroundType === 'upload' && !empty($attributes['backgroundVideoUpload'])): ?>
+            <video class="background-video" autoplay muted loop playsinline>
+                <source src="<?php echo esc_url($attributes['backgroundVideoUpload']); ?>" type="video/mp4">
+            </video>
+        <?php elseif ($backgroundType === 'youtube' && $backgroundVideo): ?>
+            <div class="background-youtube">
+                <iframe
+                    src="https://www.youtube.com/embed/<?php echo esc_attr(get_youtube_id($backgroundVideo)); ?>?autoplay=1&mute=1&loop=1&playlist=<?php echo esc_attr(get_youtube_id($backgroundVideo)); ?>&controls=0&showinfo=0&modestbranding=1&rel=0&disablekb=1"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen
+                ></iframe>
+            </div>
+        <?php elseif ($backgroundType === 'color' && $backgroundColor): ?>
+            <!-- ✅ خيار اللون/الجراديانت الجديد -->
+            <div class="background-color" style="background: <?php echo $backgroundColor; ?>;"></div>
+        <?php endif; ?>
 
         <div class="msvh_overlay"></div>
 
@@ -91,7 +96,7 @@ $backgroundVideoUpload = esc_url($attributes['backgroundVideoUpload'] ?? '');
                 </div>
             <?php endif; ?>
 
-            <?php if ($title || $description): ?>
+            <?php if ($title || $subtitle || $description): ?>
                 <div class="msvh_content_sm">
                     <?php if ($title): ?>
                         <div class="msvh_headline">
@@ -101,6 +106,18 @@ $backgroundVideoUpload = esc_url($attributes['backgroundVideoUpload'] ?? '');
                     <?php if ($description): ?>
                         <p class="msvh_description"><?php echo $description; ?></p>
                     <?php endif; ?>
+
+                    <?php if ($subtitle): ?>
+                        <!-- ✅ إضافة عرض الـ Subtitle -->
+                        <span class="msvh_subtitle" style="
+                            font-size: 1rem;
+                            opacity: 0.9;
+                            line-height: 1.5;
+                        ">
+                            <?php echo $subtitle; ?>
+                        </span>
+                    <?php endif; ?>
+
                 </div>
             <?php endif; ?>
 
@@ -175,25 +192,27 @@ function get_youtube_id($url) {
 register_block_type('custom/hero-header', [
     'render_callback' => 'render_hero_header_block',
     'attributes' => [
-        'backgroundType'    => ['type' => 'string', 'default' => 'image'],
-        'backgroundImage'   => ['type' => 'string', 'default' => ''],
-        'backgroundVideo'   => ['type' => 'string', 'default' => ''],
+        'backgroundType'        => ['type' => 'string', 'default' => 'image'],
+        'backgroundImage'       => ['type' => 'string', 'default' => ''],
+        'backgroundVideo'       => ['type' => 'string', 'default' => ''],
         'backgroundVideoUpload' => ['type' => 'string', 'default' => ''],
-        'logoImage'         => ['type' => 'string', 'default' => ''],
-        'title'             => ['type' => 'string', 'default' => 'عنوان الهيدر'],
-        'description'       => ['type' => 'string', 'default' => 'وصف الهيدر هنا'],
-        'enableForm'        => ['type' => 'boolean', 'default' => false],
-        'logoAlign'         => ['type' => 'string', 'default' => 'center'],
-        'logoAbsolute'      => ['type' => 'boolean', 'default' => false],
-        'formTitle'         => ['type' => 'string', 'default' => 'تواصل معنا'],
-        'enableFormStyle'   => ['type' => 'boolean', 'default' => true],
-        'fullbort'          => ['type' => 'boolean', 'default' => false],
-        'enableCTAWhatsapp' => ['type' => 'boolean', 'default' => true],
-        'enableCTACall'     => ['type' => 'boolean', 'default' => true],
-        'enableCTAPopup'    => ['type' => 'boolean', 'default' => true],
-        'ctaWhatsappText'   => ['type' => 'string', 'default' => 'واتساب'],
-        'ctaCallText'       => ['type' => 'string', 'default' => 'اتصال'],
-        'ctaPopupText'      => ['type' => 'string', 'default' => 'احجز وحدتك'],
-        'cards'             => ['type' => 'array', 'default' => []],
+        'backgroundColor'       => ['type' => 'string', 'default' => '#1e1e1e'], // ✅ جديد
+        'logoImage'             => ['type' => 'string', 'default' => ''],
+        'title'                 => ['type' => 'string', 'default' => 'عنوان الهيدر'],
+        'description'           => ['type' => 'string', 'default' => 'وصف الهيدر هنا'],
+        'subtitle'              => ['type' => 'string', 'default' => ''], // ✅ جديد
+        'enableForm'            => ['type' => 'boolean', 'default' => false],
+        'logoAlign'             => ['type' => 'string', 'default' => 'center'],
+        'logoAbsolute'          => ['type' => 'boolean', 'default' => false],
+        'formTitle'             => ['type' => 'string', 'default' => 'تواصل معنا'],
+        'enableFormStyle'       => ['type' => 'boolean', 'default' => true],
+        'fullbort'              => ['type' => 'boolean', 'default' => false],
+        'enableCTAWhatsapp'     => ['type' => 'boolean', 'default' => true],
+        'enableCTACall'         => ['type' => 'boolean', 'default' => true],
+        'enableCTAPopup'        => ['type' => 'boolean', 'default' => true],
+        'ctaWhatsappText'       => ['type' => 'string', 'default' => 'واتساب'],
+        'ctaCallText'           => ['type' => 'string', 'default' => 'اتصال'],
+        'ctaPopupText'          => ['type' => 'string', 'default' => 'احجز وحدتك'],
+        'cards'                 => ['type' => 'array', 'default' => []],
     ]
 ]);

@@ -1,0 +1,226 @@
+/* Footer Block Styles */
+.footer-block {
+    background-color: #111827;
+}
+
+.footer-container {
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 45px 0 30px;
+}
+
+@media (min-width: 768px) {
+    .footer-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .footer-grid.single-column {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+    }
+    
+    .footer-grid.two-columns {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Company Column */
+.footer-logo {
+    height: 40px;
+    width: auto;
+    max-width: 150px;
+}
+
+.footer-column h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 0;
+}
+
+.footer-column p {
+    color: #d1d5db;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Contact Column */
+.footer-column h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #ffffff;
+    /* margin: 0 0 16px 0; */
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #d1d5db;
+    line-height: 1.5;
+}
+
+.contact-item .icon {
+    width: 16px;
+    height: 16px;
+    color: #ffffff;
+}
+
+/* Social Media Column */
+.social-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.social-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #000000;
+    border: 1px solid #4b5563;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.social-btn:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+}
+
+/* Copyright Section */
+.footer-copyright {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+    border-top: 1px solid #374151;
+}
+
+.footer-copyright p {
+    color: #dcddde;
+    margin: 0;
+    font-size: 16px;
+}
+
+/* Icons (using Font Awesome or similar) */
+.icon-map-pin:before { content: "📍"; }
+.icon-phone:before { content: "📞"; }
+.icon-mail:before { content: "✉️"; }
+.icon-facebook:before { content: "📘"; }
+.icon-twitter:before { content: "🐦"; }
+.icon-instagram:before { content: "📷"; }
+.icon-linkedin:before { content: "💼"; }
+
+/* Alternative with Font Awesome classes */
+.fa-map-marker-alt:before,
+.fa-map-pin:before { content: "\f041"; }
+.fa-phone:before { content: "\f095"; }
+.fa-envelope:before { content: "\f0e0"; }
+.fa-facebook-f:before { content: "\f09a"; }
+.fa-twitter:before { content: "\f099"; }
+.fa-instagram:before { content: "\f16d"; }
+.fa-linkedin-in:before { content: "\f0e1"; }
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    .footer-block {
+        padding: 32px 0;
+    }
+    
+    .footer-grid {
+        gap: 24px;
+    }
+    
+    .footer-column h3 {
+        font-size: 1.125rem;
+    }
+    
+    .footer-column h4 {
+        font-size: 1rem;
+    }
+    
+    .social-buttons {
+        gap: 12px;
+    }
+    
+    .social-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+    
+    .footer-copyright {
+        margin-top: 24px;
+        padding-top: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-container {
+        padding: 0 12px;
+    }
+    
+    .footer-grid {
+        gap: 20px;
+    }
+    
+    .footer-column {
+        gap: 12px;
+    }
+    
+    .contact-info {
+        gap: 6px;
+    }
+    
+    .social-buttons {
+        justify-content: center;
+    }
+}
+
+/* Editor Preview Styles */
+.footer-block-editor .footer-block-preview {
+    border: 2px dashed #ccc;
+    min-height: 200px;
+}
+
+.footer-block-editor .footer-container {
+    max-width: 100%;
+}
+
+.footer-block-editor .social-btn {
+    pointer-events: none;
+}
+
+/* Utility Classes for Dynamic Colors */
+.text-primary { color: var(--footer-text-color, #ffffff); }
+.text-secondary { color: var(--footer-secondary-text-color, #d1d5db); }
+.text-muted { color: var(--footer-copyright-text-color, #9ca3af); }
+.bg-footer { background-color: var(--footer-bg-color, #111827); }
+.border-footer { border-color: var(--footer-border-color, #374151); }

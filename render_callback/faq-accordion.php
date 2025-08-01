@@ -36,9 +36,9 @@ function render_accordion_section_block($attributes) {
                         </button>
 
                         <div id="<?php echo esc_attr($item_id); ?>" class="accordion-content ph-content" style="display: none;">
-                            <div class="accordion-inner">
+                            <div class="accordion-inner"><div class="sncac">
                                 <?php echo $content; ?>
-                            </div>
+                            </div></div>
                         </div>
                     </div>
                 <?php endforeach; ?>

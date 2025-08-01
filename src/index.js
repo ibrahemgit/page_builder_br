@@ -6,6 +6,10 @@ import '../blocks/scripts/block-four.js';
 import '../blocks/scripts/new-cta.js';
 import '../blocks/scripts/cta_block2.js';
 import '../blocks/scripts/new-galry.js';
+
+import '../blocks/scripts/new-grid-gallery.js';
+
+
 import '../blocks/scripts/video-galry.js';
 import '../blocks/scripts/cta-fixd.js';
 import '../blocks/scripts/cta-fixd2.js';
@@ -21,9 +25,24 @@ import '../blocks/scripts/iccards.js';
 import '../blocks/scripts/faq-accordion.js';
 import '../blocks/scripts/reviews-block.js';
 
+
+import '../blocks/scripts/full_footer.js';
+
+
+import '../blocks/scripts/msv-form-block.js';
+
+
+import '../blocks/scripts/accordion-with-units.js';
+
+
 import '../blocks/styles/block-one.css';
 import '../blocks/styles/block-two.css';
 import '../blocks/styles/hero-header-new.css';
 import '../blocks/styles/ficons.css';
 import '../blocks/styles/newstyle.css';
+
+import '../blocks/styles/full_footer.css';
+
+import '../blocks/styles/msv-form-block.css';
+
 import '../blocks/styles/responsive.css';

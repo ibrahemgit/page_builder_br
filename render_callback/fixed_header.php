@@ -1,10 +1,14 @@
 <?php
 
 function fixed_header_block_render($attributes) {
-    $titleText        = isset($attributes['titleText']) ? esc_html($attributes['titleText']) : 'معرض بولد روتس';
-    $subtitleText     = isset($attributes['subtitleText']) ? esc_html($attributes['subtitleText']) : 'اشترك في العضوية';
-    $countdownTime    = isset($attributes['countdownTime']) ? esc_html($attributes['countdownTime']) : '';
-    $backgroundColor  = isset($attributes['backgroundColor']) ? esc_html($attributes['backgroundColor']) : '#000';
+    $titleText              = isset($attributes['titleText']) ? esc_html($attributes['titleText']) : 'معرض بولد روتس';
+    $subtitleText           = isset($attributes['subtitleText']) ? esc_html($attributes['subtitleText']) : 'اشترك في العضوية';
+    $countdownTime          = isset($attributes['countdownTime']) ? esc_html($attributes['countdownTime']) : '';
+    $backgroundColor        = isset($attributes['backgroundColor']) ? esc_attr($attributes['backgroundColor']) : '#000';
+    $isRTL                  = isset($attributes['isRTL']) ? $attributes['isRTL'] : true;
+    $registerButtonText     = isset($attributes['registerButtonText']) ? esc_html($attributes['registerButtonText']) : 'سجل بياناتك';
+    $registerButtonBgColor  = isset($attributes['registerButtonBgColor']) ? esc_attr($attributes['registerButtonBgColor']) : '#007cba'; // ✅ لون خلفية الزر
+    $registerButtonTextColor = isset($attributes['registerButtonTextColor']) ? esc_attr($attributes['registerButtonTextColor']) : '#ffffff'; // ✅ لون نص الزر
 
     $post_id = get_the_ID();
 
@@ -53,9 +57,12 @@ function fixed_header_block_render($attributes) {
 
     $post_title = $post_id ? get_the_title($post_id) : 'المعرض';
 
+    // ✅ تحديد الاتجاه
+    $direction = $isRTL ? 'rtl' : 'ltr';
+
     ob_start();
     ?>
-    <div class="sectionfixd" style="background-color: <?php echo $backgroundColor; ?>;">
+    <div class="sectionfixd" style="background: <?php echo $backgroundColor; ?>; direction: <?php echo $direction; ?>;">
         <div class="container">
             <div class="scfixdcontentflx">
                 <div class="col-section colone">
@@ -73,7 +80,7 @@ function fixed_header_block_render($attributes) {
                            href="https://wa.me/<?php echo esc_attr($whatsNumber); ?>?text=أرغب في معرفة المزيد عن <?php echo esc_html($post_title); ?>">
                             <i class="fa fa-whatsapp" aria-hidden="true"></i> واتساب
                         </a>
-                        <span id="subform" class='subform'>سجل بياناتك</span>
+                        <span id="subform" class='subform openform' style="background-color: <?php echo $registerButtonBgColor; ?>; color: <?php echo $registerButtonTextColor; ?>;"><?php echo $registerButtonText; ?></span>
                     </div>
                 </div>
             </div>
@@ -118,9 +125,13 @@ function fixed_header_block_render($attributes) {
 register_block_type('custom/fixed-header', array(
     'render_callback' => 'fixed_header_block_render',
     'attributes' => array(
-        'titleText'       => array('type' => 'string', 'default' => 'معرض بولد روتس'),
-        'subtitleText'    => array('type' => 'string', 'default' => 'اشترك في العضوية'),
-        'countdownTime'   => array('type' => 'string', 'default' => ''),
-        'backgroundColor' => array('type' => 'string', 'default' => '#000'),
+        'titleText'              => array('type' => 'string', 'default' => 'معرض بولد روتس'),
+        'subtitleText'           => array('type' => 'string', 'default' => 'اشترك في العضوية'),
+        'countdownTime'          => array('type' => 'string', 'default' => ''),
+        'backgroundColor'        => array('type' => 'string', 'default' => '#000'),
+        'isRTL'                  => array('type' => 'boolean', 'default' => true),
+        'registerButtonText'     => array('type' => 'string', 'default' => 'سجل بياناتك'),
+        'registerButtonBgColor'  => array('type' => 'string', 'default' => '#007cba'), // ✅ لون خلفية الزر
+        'registerButtonTextColor' => array('type' => 'string', 'default' => '#ffffff'), // ✅ لون نص الزر
     ),
 ));

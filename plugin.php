@@ -70,6 +70,15 @@ require_once plugin_dir_path(__FILE__) . 'render_callback/faq-accordion.php';
 require_once plugin_dir_path(__FILE__) . 'render_callback/reviews-block.php';
 
 
+require_once plugin_dir_path(__FILE__) . 'render_callback/new-grid-gallery.php';
+require_once plugin_dir_path(__FILE__) . 'render_callback/full_footer.php';
+
+require_once plugin_dir_path(__FILE__) . 'render_callback/msv-form-block.php';
+
+
+require_once plugin_dir_path(__FILE__) . 'render_callback/accordion-with-units.php';
+
+
 /* جروب بلوكات جديد */
 function override_block_categories($categories) {
     return array(
@@ -106,6 +115,7 @@ function remove_all_default_blocks($allowed_block_types, $editor_context) {
         'custom/form-block',
         'custom/gallery-logos',
         'custom/gallery-images',
+        'custom/gallery-images-grid',
         'custom/cta-block',
         'custom/cta-block2',
         'custom/footer-cta-block',
@@ -120,6 +130,10 @@ function remove_all_default_blocks($allowed_block_types, $editor_context) {
         'custom/units-grid',
         'custom/accordion-section',
         'custom/review-block',
+        'custom/full-footer-block',
+
+        'custom/advanced-form-block',
+        'custom/accordion-with-units',
     );
 
     return $allowed_blocks;

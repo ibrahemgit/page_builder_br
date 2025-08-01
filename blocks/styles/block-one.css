@@ -46,9 +46,9 @@ header {
 }
 .container {
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 20px;
     width: 100%;
-    max-width: 1300px;
+    max-width: 1450px;
 }
 .flex-header {
     display: flex;
@@ -677,11 +677,7 @@ footer.ib_footer {
 .pb-item .text {
     font-size: 20px;
 }
-.project_content,.section_gallry {
-    padding: 40px 0;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-}
+
 .project_content:nth-child(odd) {
     background: var(--primary-color);
 }
@@ -701,8 +697,8 @@ footer.ib_footer {
 }
 .pjc-title,.ph-title {
     display: block;
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 25px;
+    margin-bottom: 30px;
     text-align: center;
     font-weight: bold;
 }
@@ -720,9 +716,7 @@ footer.ib_footer {
 
 
 /* shortcode */
-.shortcodesection {
-    margin: 30px 0 !important;
-}
+
 .shortcodesection .container {
     max-width: 1000px;
 }
@@ -776,11 +770,11 @@ footer.ib_footer {
     flex-direction: column;
     gap: 5px;
     line-height: 1.5em;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     align-items: center;
 }
 .headline.sm_title.shorttitle span {
-    font-size: 22px !important;
+    font-size: 25px !important;
     color: #000;
     font-weight: bold;
     text-align: center;
@@ -852,7 +846,7 @@ footer.ib_footer {
 }
 h2.pjc-title {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     font-size: 25px;
 }
 

@@ -22,21 +22,21 @@ function getYoutubeId(url) {
   }
 }
 
-
-
 registerBlockType('custom/hero-header', {
   title: 'Ultimate Hero Header',
   icon: 'format-image',
   category: 'custom-blocks',
 
   attributes: {
-    backgroundType: { type: 'string', default: 'image' },         // image | youtube
+    backgroundType: { type: 'string', default: 'image' },         // image | youtube | upload | color
     backgroundImage: { type: 'string', default: '' },
     backgroundVideo: { type: 'string', default: '' },              // YouTube link
     backgroundVideoUpload: { type: 'string', default: '' },
+    backgroundColor: { type: 'string', default: '#1e1e1e' },       // لون الخلفية
 
     logoImage: { type: 'string', default: '' },
     title: { type: 'string', default: 'عنوان الهيدر' },
+    subtitle: { type: 'string', default: '' }, // ✅ جديد
     description: { type: 'string', default: 'وصف الهيدر هنا' },
     enableForm: { type: 'boolean', default: false },
     logoAlign: { type: 'string', default: 'center' },
@@ -63,6 +63,7 @@ registerBlockType('custom/hero-header', {
       backgroundImage,
       logoImage,
       title,
+      subtitle,
       description,
       enableForm,
       logoAlign,
@@ -83,94 +84,131 @@ registerBlockType('custom/hero-header', {
         <InspectorControls>
           <PanelBody title="إعدادات الهيدر" initialOpen={false}>
 
-<SelectControl
-  label="نوع الخلفية"
-  value={attributes.backgroundType}
-  options={[
-    { label: 'صورة', value: 'image' },
-    { label: 'رابط يوتيوب', value: 'youtube' },
-    { label: 'رفع فيديو', value: 'upload' } // ✅ جديدة
-  ]}
-  onChange={(value) => setAttributes({ backgroundType: value })}
-/>
+            <SelectControl
+              label="نوع الخلفية"
+              value={attributes.backgroundType}
+              options={[
+                { label: 'صورة', value: 'image' },
+                { label: 'رابط يوتيوب', value: 'youtube' },
+                { label: 'رفع فيديو', value: 'upload' },
+                { label: 'لون عادي', value: 'color' }
+              ]}
+              onChange={(value) => setAttributes({ backgroundType: value })}
+            />
 
+            {/* خيار الصورة */}
+            {attributes.backgroundType === 'image' && (
+              <>
+                {attributes.backgroundImage && (
+                  <div style={{ marginBottom: '10px' }}>
+                    <img src={attributes.backgroundImage} alt="Background" style={{ maxWidth: '100%', borderRadius: '4px' }} />
+                    <Button
+                      isDestructive
+                      isSmall
+                      onClick={() => setAttributes({ backgroundImage: '' })}
+                      style={{ marginTop: '5px' }}
+                    >
+                      حذف الخلفية
+                    </Button>
+                  </div>
+                )}
+                <MediaUpload
+                  onSelect={(media) => setAttributes({ backgroundImage: media.url })}
+                  allowedTypes={['image']}
+                  render={({ open }) => (
+                    <Button onClick={open} isSecondary>
+                      {attributes.backgroundImage ? 'تغيير الخلفية' : 'اختيار خلفية'}
+                    </Button>
+                  )}
+                />
+              </>
+            )}
 
-{attributes.backgroundType === 'image' && (
-  <>
-    {attributes.backgroundImage && (
-      <div style={{ marginBottom: '10px' }}>
-        <img src={attributes.backgroundImage} alt="Background" style={{ maxWidth: '100%', borderRadius: '4px' }} />
-        <Button
-          isDestructive
-          isSmall
-          onClick={() => setAttributes({ backgroundImage: '' })}
-          style={{ marginTop: '5px' }}
-        >
-          حذف الخلفية
-        </Button>
-      </div>
-    )}
-    <MediaUpload
-      onSelect={(media) => setAttributes({ backgroundImage: media.url })}
-      allowedTypes={['image']}
-      render={({ open }) => (
-        <Button onClick={open} isSecondary>
-          {attributes.backgroundImage ? 'تغيير الخلفية' : 'اختيار خلفية'}
-        </Button>
-      )}
-    />
-  </>
-)}
+            {/* خيار رفع الفيديو */}
+            {attributes.backgroundType === 'upload' && (
+              <>
+                {attributes.backgroundVideoUpload && (
+                  <div style={{ marginBottom: '10px' }}>
+                    <video
+                      src={attributes.backgroundVideoUpload}
+                      controls
+                      style={{ width: '100%', borderRadius: '4px' }}
+                    />
+                    <Button
+                      isDestructive
+                      isSmall
+                      onClick={() => setAttributes({ backgroundVideoUpload: '' })}
+                      style={{ marginTop: '5px' }}
+                    >
+                      حذف الفيديو
+                    </Button>
+                  </div>
+                )}
+                <MediaUpload
+                  onSelect={(media) => setAttributes({ backgroundVideoUpload: media.url })}
+                  allowedTypes={['video']}
+                  render={({ open }) => (
+                    <Button onClick={open} isSecondary>
+                      {attributes.backgroundVideoUpload ? 'تغيير الفيديو' : 'رفع فيديو'}
+                    </Button>
+                  )}
+                />
+              </>
+            )}
 
-{attributes.backgroundType === 'upload' && (
-  <>
-    {attributes.backgroundVideoUpload && (
-      <div style={{ marginBottom: '10px' }}>
-        <video
-          src={attributes.backgroundVideoUpload}
-          controls
-          style={{ width: '100%', borderRadius: '4px' }}
-        />
-        <Button
-          isDestructive
-          isSmall
-          onClick={() => setAttributes({ backgroundVideoUpload: '' })}
-          style={{ marginTop: '5px' }}
-        >
-          حذف الفيديو
-        </Button>
-      </div>
-    )}
-    <MediaUpload
-      onSelect={(media) => setAttributes({ backgroundVideoUpload: media.url })}
-      allowedTypes={['video']}
-      render={({ open }) => (
-        <Button onClick={open} isSecondary>
-          {attributes.backgroundVideoUpload ? 'تغيير الفيديو' : 'رفع فيديو'}
-        </Button>
-      )}
-    />
-  </>
-)}
+            {/* خيار يوتيوب */}
+            {attributes.backgroundType === 'youtube' && (
+              <TextControl
+                label="رابط يوتيوب"
+                value={attributes.backgroundVideo}
+                onChange={(value) => setAttributes({ backgroundVideo: value })}
+              />
+            )}
 
-{attributes.backgroundType === 'youtube' && (
-  <TextControl
-    label="رابط يوتيوب"
-    value={attributes.backgroundVideo}
-    onChange={(value) => setAttributes({ backgroundVideo: value })}
-  />
-)}
+            {/* خيار اللون العادي */}
+            {attributes.backgroundType === 'color' && (
+              <div style={{ marginBottom: '15px' }}>
+                <TextControl
+                  label="CSS Background (لون، جراديانت، الخ)"
+                  value={attributes.backgroundColor}
+                  onChange={(value) => setAttributes({ backgroundColor: value })}
+                  placeholder="مثال: #1e1e1e أو linear-gradient(to bottom right, #0E1627, #000, #1f2937)"
+                  help="يمكنك كتابة أي CSS background: لون عادي، جراديانت، أو أي تأثير آخر"
+                />
+                <div style={{ fontSize: '11px', color: '#666', marginTop: '5px' }}>
+                  <strong>أمثلة:</strong><br/>
+                  • لون عادي: <code>#1e1e1e</code><br/>
+                  • جراديانت: <code>linear-gradient(45deg, #ff6b6b, #4ecdc4)</code><br/>
+                  • جراديانت متعدد: <code>linear-gradient(to bottom right, #0E1627, #000, #1f2937)</code>
+                </div>
+              </div>
+            )}
 
             <TextControl
-              label="عنوان الهيدر"
+              label="العنوان الرئيسي"
               value={title}
               onChange={(value) => setAttributes({ title: value })}
             />
+            
+
+            
             <TextControl
               label="وصف الهيدر"
               value={description}
               onChange={(value) => setAttributes({ description: value })}
             />
+
+
+            {/* ✅ إضافة حقل الـ Subtitle */}
+            <TextControl
+              label="العنوان الفرعي"
+              value={subtitle}
+              onChange={(value) => setAttributes({ subtitle: value })}
+              placeholder="العنوان الفرعي للهيدر"
+              help="يظهر تحت العنوان الرئيسي وقبل الوصف"
+            />
+
+
             <ToggleControl
               label="تفعيل 100%"
               checked={attributes.fullbort}
@@ -320,66 +358,81 @@ registerBlockType('custom/hero-header', {
           </PanelBody>
         </InspectorControls>
 
-        
-          <div className="msvh_hero-section">
+        <div className="msvh_hero-section">
           
-{/* صورة كخلفية */}
-{attributes.backgroundType === 'image' && attributes.backgroundImage && (
-  <div
-    className="background-image"
-    style={{
-      backgroundImage: `url(${attributes.backgroundImage})`,
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      zIndex: 0
-    }}
-  />
-)}
+          {/* صورة كخلفية */}
+          {attributes.backgroundType === 'image' && attributes.backgroundImage && (
+            <div
+              className="background-image"
+              style={{
+                backgroundImage: `url(${attributes.backgroundImage})`,
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                zIndex: 0
+              }}
+            />
+          )}
 
-{/* فيديو مرفوع */}
-{attributes.backgroundType === 'upload' && attributes.backgroundVideoUpload && (
-  <video
-    className="background-video"
-    src={attributes.backgroundVideoUpload}
-    autoPlay
-    muted
-    loop
-    playsInline
-    style={{
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover',
-      zIndex: 0
-    }}
-  />
-)}
+          {/* فيديو مرفوع */}
+          {attributes.backgroundType === 'upload' && attributes.backgroundVideoUpload && (
+            <video
+              className="background-video"
+              src={attributes.backgroundVideoUpload}
+              autoPlay
+              muted
+              loop
+              playsInline
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                zIndex: 0
+              }}
+            />
+          )}
 
-{/* يوتيوب */}
-{attributes.backgroundType === 'youtube' &&
-  attributes.backgroundVideo &&
-  getYoutubeId(attributes.backgroundVideo) && (
-    <div className="background-youtube" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
-      <iframe
-        src={`https://www.youtube.com/embed/${getYoutubeId(attributes.backgroundVideo)}?autoplay=1&mute=1&loop=1&playlist=${getYoutubeId(attributes.backgroundVideo)}&controls=0&showinfo=0&modestbranding=1&rel=0&disablekb=1`}
-        frameBorder="0"
-        allow="autoplay; encrypted-media"
-        allowFullScreen
-        style={{
-          width: '100%',
-          height: '100%',
-          pointerEvents: 'none'
-        }}
-      ></iframe>
-    </div>
-)}
+          {/* يوتيوب */}
+          {attributes.backgroundType === 'youtube' &&
+            attributes.backgroundVideo &&
+            getYoutubeId(attributes.backgroundVideo) && (
+              <div className="background-youtube" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
+                <iframe
+                  src={`https://www.youtube.com/embed/${getYoutubeId(attributes.backgroundVideo)}?autoplay=1&mute=1&loop=1&playlist=${getYoutubeId(attributes.backgroundVideo)}&controls=0&showinfo=0&modestbranding=1&rel=0&disablekb=1`}
+                  frameBorder="0"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    pointerEvents: 'none'
+                  }}
+                ></iframe>
+              </div>
+          )}
+
+          {/* لون عادي كخلفية */}
+          {attributes.backgroundType === 'color' && (
+            <div
+              className="background-color"
+              style={{
+                background: attributes.backgroundColor,
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 0
+              }}
+            />
+          )}
 
           <div className="msvh_overlay"></div>
           <div className="container msvh_content">
@@ -389,10 +442,23 @@ registerBlockType('custom/hero-header', {
               </div>
             )}
 
-            {(title || description) && (
+            {(title || subtitle || description) && (
               <div className="msvh_content_sm">
                 {title && <h1 className="msvh_headline">{title}</h1>}
+                {/* ✅ إضافة عرض الـ Subtitle */}
+
                 {description && <p className="msvh_description">{description}</p>}
+
+                {subtitle && (
+                  <span className="msvh_subtitle" style={{
+                    fontSize: '1rem',
+                    opacity: '0.9',
+                    lineHeight: '1.5'
+                  }}>
+                    {subtitle}
+                  </span>
+                )}
+
               </div>
             )}
 
