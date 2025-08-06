@@ -54,6 +54,22 @@ registerBlockType('custom/advanced-form-block', {
             ]
         },
 
+
+        // حقل المنطقة
+        showAreaField: { type: 'boolean', default: true },
+        areaLabel: { type: 'string', default: 'المنطقة' },
+        areaOptions: {
+            type: 'array',
+            default: [
+                { label: 'اختر المنطقة', value: '' },
+                { label: 'القاهرة الجديدة', value: 'new-cairo' },
+                { label: '6 أكتوبر', value: '6october' },
+                { label: 'الشيخ زايد', value: 'sheikh-zayed' },
+                { label: 'العين السخنة', value: 'sokhna' },
+                { label: 'العاصمة الإدارية', value: 'new-capital' },
+            ]
+        },
+
         // ألوان القسم
         sectionBgColor: { type: 'string', default: '#000' },
         sectionTextColor: { type: 'string', default: '#ffffff' },
@@ -77,7 +93,7 @@ registerBlockType('custom/advanced-form-block', {
     edit: ({ attributes, setAttributes }) => {
         const {
             formTitle, formSubtitle, submitButtonText,
-            showNameField, showPhoneField, showUnitTypeField, showPriceField, showTimeField,
+            showNameField, showPhoneField, showUnitTypeField, showPriceField, showTimeField,showAreaField,areaLabel,areaOptions,
             nameLabel, namePlaceholder, phoneLabel, phonePlaceholder, 
             unitTypeLabel, priceLabel, pricePlaceholder, priceMinText, timeLabel,
             unitTypeOptions, timeOptions,
@@ -156,6 +172,14 @@ registerBlockType('custom/advanced-form-block', {
                             checked={showTimeField}
                             onChange={(value) => setAttributes({ showTimeField: value })}
                         />
+
+                        <ToggleControl
+                            label="إظهار حقل المنطقة"
+                            checked={showAreaField}
+                            onChange={(value) => setAttributes({ showAreaField: value })}
+                        />
+
+
                     </PanelBody>
 
                     {/* إعدادات حقل الاسم */}
@@ -288,6 +312,46 @@ registerBlockType('custom/advanced-form-block', {
                             </Button>
                         </PanelBody>
                     )}
+
+
+{showAreaField && (
+    <PanelBody title="إعدادات حقل المنطقة" initialOpen={false}>
+        <TextControl
+            label="تسمية الحقل"
+            value={areaLabel}
+            onChange={(value) => setAttributes({ areaLabel: value })}
+        />
+        <h4>خيارات المنطقة:</h4>
+        {areaOptions.map((option, index) => (
+            <div key={index} style={{ border: '1px solid #ddd', padding: '10px', marginBottom: '10px', borderRadius: '4px' }}>
+                <TextControl
+                    label={`النص المعروض ${index + 1}`}
+                    value={option.label}
+                    onChange={(value) => updateSelectOption('areaOptions', index, 'label', value)}
+                />
+                <TextControl
+                    label={`القيمة ${index + 1}`}
+                    value={option.value}
+                    onChange={(value) => updateSelectOption('areaOptions', index, 'value', value)}
+                />
+                <Button
+                    isDestructive
+                    isSmall
+                    onClick={() => removeSelectOption('areaOptions', index)}
+                >
+                    حذف الخيار
+                </Button>
+            </div>
+        ))}
+        <Button
+            isSecondary
+            onClick={() => addSelectOption('areaOptions')}
+        >
+            إضافة خيار جديد
+        </Button>
+    </PanelBody>
+)}
+
 
                     {/* ألوان القسم */}
                     <PanelBody title="ألوان القسم" initialOpen={false}>
@@ -637,6 +701,57 @@ registerBlockType('custom/advanced-form-block', {
                                                 )}
                                             </div>
                                         )}
+
+{showAreaField && (
+    <div className="form-field">
+        <label className="field-label" style={{ 
+            color: formTextColor, 
+        }}>
+            {areaLabel}
+        </label>
+        {areaOptions && areaOptions.length > 0 ? (
+            <select 
+                className="field-select" 
+                defaultValue=""
+                style={{
+                    backgroundColor: fieldBgColor,
+                    border: `1px solid ${fieldBorderColor}`,
+                    color: fieldTextColor,
+                }}
+            >
+                {areaOptions.map((option, index) => {
+                    const isEmpty = !option.value || option.value === '';
+                    if (isEmpty) {
+                        return (
+                            <option 
+                                key={index} 
+                                value="" 
+                                disabled 
+                                style={{ display: 'none' }}
+                            >
+                                {option.label}
+                            </option>
+                        );
+                    }
+                    return (
+                        <option key={index} value={option.value}>
+                            {option.label}
+                        </option>
+                    );
+                })}
+            </select>
+        ) : (
+            <div style={{
+                backgroundColor: fieldBgColor,
+                border: `1px solid ${fieldBorderColor}`,
+                color: fieldTextColor,
+            }}>
+                لا توجد خيارات متاحة - أضف خيارات من الإعدادات
+            </div>
+        )}
+    </div>
+)}
+
 
                                         {/* زر الإرسال */}
                                         <span 
