@@ -586,6 +586,20 @@ span.moana {
 }
 
 
+.property-extra1,.property-extra2 {
+    background: #fdf7f3;
+    border-radius: 30px;
+    color: #85370d;
+    font-size: 14px;
+    margin-top: 3px;
+    padding: 0 15px;
+}
+
+.property-extra2 {
+    background: #fbe5da;
+}
+
+
 .section_gallry_grid, .project_content, .section_gallry, .shortcodesection, .section_gallry, .advanced-form-wrapper {
     border-bottom: 1px solid rgba(0, 0, 0, 5%);
     padding: 40px 0;

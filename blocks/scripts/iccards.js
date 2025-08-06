@@ -34,10 +34,13 @@ registerBlockType('custom/units-grid', {
                 icon: '',
                 area: '',
                 price: '',
-                down: ''
+                down: '',
+                extra1: '', // خانة إضافية 1
+                extra2: ''  // خانة إضافية 2
             });
             setAttributes({ units: newUnits });
         };
+
 
         const removeUnit = (index) => {
             const newUnits = [...units];
@@ -96,6 +99,14 @@ registerBlockType('custom/units-grid', {
                                         value={unit.down}
                                         onChange={(value) => updateUnit(value, index, 'down')}
                                     />
+                                    <TextControl
+                                        value={unit.extra1}
+                                        onChange={(value) => updateUnit(value, index, 'extra1')}
+                                    />
+                                    <TextControl
+                                        value={unit.extra2}
+                                        onChange={(value) => updateUnit(value, index, 'extra2')}
+                                    />
                                     <span className='moana'>معاينة</span>
                                     <div className="property-preview">
                                         {unit.icon && (
@@ -115,6 +126,12 @@ registerBlockType('custom/units-grid', {
                                             )}
                                             {unit.down && (
                                                 <p className="property-down"><strong>المقدم:</strong> {unit.down}</p>
+                                            )}
+                                            {unit.extra1 && (
+                                                <p className="property-extra1">{unit.extra1}</p>
+                                            )}
+                                            {unit.extra2 && (
+                                                <p className="property-extra2">{unit.extra2}</p>
                                             )}
                                         </div>
                                         <div className="property-cta">احجز الان</div>

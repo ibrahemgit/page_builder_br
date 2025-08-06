@@ -8,11 +8,11 @@ function render_hero_header_block($attributes) {
     $backgroundColor       = esc_attr($attributes['backgroundColor'] ?? '#1e1e1e'); // ✅ جديد
 
     $logoImage = esc_url($attributes['logoImage'] ?? '');
-    $title = esc_html($attributes['title'] ?? '');
+    $title = $attributes['title'];
 
-    $subtitle = esc_html($attributes['subtitle'] ?? ''); // ✅ جديد
+    $subtitle = $attributes['subtitle']; // ✅ جديد
 
-    $description = esc_html($attributes['description'] ?? '');
+    $description = $attributes['description'];
     $enableForm = $attributes['enableForm'] ?? false;
     $logoAbsolute = $attributes['logoAbsolute'] ?? false;
     $logoAlign = $attributes['logoAlign'] ?? 'center';

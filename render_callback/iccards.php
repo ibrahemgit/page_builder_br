@@ -39,6 +39,15 @@ function render_units_grid_block($attributes) {
                             <?php if (!empty($unit['down'])): ?>
                                 <p class="property-down"><strong>المقدم : </strong> <?php echo esc_html($unit['down']); ?></p>
                             <?php endif; ?>
+                            
+                            <?php if (!empty($unit['extra1'])): ?>
+                                <p class="property-extra1"><?php echo esc_html($unit['extra1']); ?></p>
+                            <?php endif; ?>
+
+                            <?php if (!empty($unit['extra2'])): ?>
+                                <p class="property-extra2"><?php echo esc_html($unit['extra2']); ?></p>
+                            <?php endif; ?>
+
                         </div>
                         <div class="property-cta">احجز الان</div>
                     </div>
