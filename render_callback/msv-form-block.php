@@ -118,29 +118,31 @@ $area_options = isset($attributes['areaOptions']) ? $attributes['areaOptions'] :
                                         <div class="form-field">
                                             <label class="field-label" style="color: <?php echo $form_text_color; ?>;"><?php echo $unit_type_label; ?></label>
                                             <?php if (!empty($unit_type_options)): ?>
-                                                <select 
-                                                    name="unit_type" 
-                                                    class="field-select" 
-                                                    style="background-color: <?php echo $field_bg_color; ?>; border-color: <?php echo $field_border_color; ?>; color: <?php echo $field_text_color; ?>;"
-                                                    required
-                                                >
-                                                    <?php foreach ($unit_type_options as $index => $option): ?>
-                                                        <?php 
-                                                        // التأكد من وجود المفاتيح
-                                                        $option_value = isset($option['value']) ? $option['value'] : '';
-                                                        $option_label = isset($option['label']) ? $option['label'] : '';
-                                                        ?>
-                                                        <?php if ($index === 0 && empty($option_value)): ?>
-                                                            <option value="<?php echo esc_attr($option_value); ?>" disabled selected hidden>
-                                                                <?php echo esc_html($option_label); ?>
-                                                            </option>
-                                                        <?php else: ?>
-                                                            <option value="<?php echo esc_attr($option_value); ?>">
-                                                                <?php echo esc_html($option_label); ?>
-                                                            </option>
-                                                        <?php endif; ?>
-                                                    <?php endforeach; ?>
-                                                </select>
+                                                <div class="select-wrap">
+                                                    <select 
+                                                        name="unit_type" 
+                                                        class="field-select" 
+                                                        style="background-color: <?php echo $field_bg_color; ?>; border-color: <?php echo $field_border_color; ?>; color: <?php echo $field_text_color; ?>;"
+                                                        required
+                                                    >
+                                                        <?php foreach ($unit_type_options as $index => $option): ?>
+                                                            <?php 
+                                                            // التأكد من وجود المفاتيح
+                                                            $option_value = isset($option['value']) ? $option['value'] : '';
+                                                            $option_label = isset($option['label']) ? $option['label'] : '';
+                                                            ?>
+                                                            <?php if ($index === 0 && empty($option_value)): ?>
+                                                                <option value="<?php echo esc_attr($option_value); ?>" disabled selected hidden>
+                                                                    <?php echo esc_html($option_label); ?>
+                                                                </option>
+                                                            <?php else: ?>
+                                                                <option value="<?php echo esc_attr($option_value); ?>">
+                                                                    <?php echo esc_html($option_label); ?>
+                                                                </option>
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
                                             <?php else: ?>
                                                 <div style="background-color: <?php echo $field_bg_color; ?>; border-color: <?php echo $field_border_color; ?>; color: <?php echo $field_text_color; ?>;" class="no-options-message">
                                                     لا توجد خيارات متاحة - أضف خيارات من الإعدادات
@@ -177,28 +179,30 @@ $area_options = isset($attributes['areaOptions']) ? $attributes['areaOptions'] :
                                     <label class="field-label" style="color: <?php echo $form_text_color; ?>;"><?php echo $time_label; ?></label>
 
                                     <?php if (!empty($time_options)): ?>
-                                        <select 
-                                            name="preferred_time" 
-                                            class="field-select"
-                                            style="background-color: <?php echo $field_bg_color; ?>; border-color: <?php echo $field_border_color; ?>; color: <?php echo $field_text_color; ?>;"
-                                        >
-                                            <?php foreach ($time_options as $index => $option): ?>
-                                                <?php 
-                                                // التأكد من وجود المفاتيح
-                                                $option_value = isset($option['value']) ? $option['value'] : '';
-                                                $option_label = isset($option['label']) ? $option['label'] : '';
-                                                ?>
-                                                <?php if ($index === 0 && empty($option_value)): ?>
-                                                    <option value="<?php echo esc_attr($option_value); ?>" disabled selected hidden>
-                                                        <?php echo esc_html($option_label); ?>
-                                                    </option>
-                                                <?php else: ?>
-                                                    <option value="<?php echo esc_attr($option_value); ?>">
-                                                        <?php echo esc_html($option_label); ?>
-                                                    </option>
-                                                <?php endif; ?>
-                                            <?php endforeach; ?>
-                                        </select>
+                                        <div class="select-wrap">
+                                            <select 
+                                                name="preferred_time" 
+                                                class="field-select"
+                                                style="background-color: <?php echo $field_bg_color; ?>; border-color: <?php echo $field_border_color; ?>; color: <?php echo $field_text_color; ?>;"
+                                            >
+                                                <?php foreach ($time_options as $index => $option): ?>
+                                                    <?php 
+                                                    // التأكد من وجود المفاتيح
+                                                    $option_value = isset($option['value']) ? $option['value'] : '';
+                                                    $option_label = isset($option['label']) ? $option['label'] : '';
+                                                    ?>
+                                                    <?php if ($index === 0 && empty($option_value)): ?>
+                                                        <option value="<?php echo esc_attr($option_value); ?>" disabled selected hidden>
+                                                            <?php echo esc_html($option_label); ?>
+                                                        </option>
+                                                    <?php else: ?>
+                                                        <option value="<?php echo esc_attr($option_value); ?>">
+                                                            <?php echo esc_html($option_label); ?>
+                                                        </option>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
                                     <?php else: ?>
                                         <div style="background-color: <?php echo $field_bg_color; ?>; border-color: <?php echo $field_border_color; ?>; color: <?php echo $field_text_color; ?>;" class="no-options-message">
                                             لا توجد خيارات متاحة - أضف خيارات من الإعدادات
@@ -213,27 +217,29 @@ $area_options = isset($attributes['areaOptions']) ? $attributes['areaOptions'] :
                                     <label class="field-label" style="color: <?php echo $form_text_color; ?>;"><?php echo $area_label; ?></label>
 
                                     <?php if (!empty($area_options)): ?>
-                                        <select 
-                                            name="area" 
-                                            class="field-select"
-                                            style="background-color: <?php echo $field_bg_color; ?>; border-color: <?php echo $field_border_color; ?>; color: <?php echo $field_text_color; ?>;"
-                                        >
-                                            <?php foreach ($area_options as $index => $option): ?>
-                                                <?php 
-                                                $option_value = isset($option['value']) ? $option['value'] : '';
-                                                $option_label = isset($option['label']) ? $option['label'] : '';
-                                                ?>
-                                                <?php if ($index === 0 && empty($option_value)): ?>
-                                                    <option value="<?php echo esc_attr($option_value); ?>" disabled selected hidden>
-                                                        <?php echo esc_html($option_label); ?>
-                                                    </option>
-                                                <?php else: ?>
-                                                    <option value="<?php echo esc_attr($option_value); ?>">
-                                                        <?php echo esc_html($option_label); ?>
-                                                    </option>
-                                                <?php endif; ?>
-                                            <?php endforeach; ?>
-                                        </select>
+                                        <div class="select-wrap">
+                                            <select 
+                                                name="area" 
+                                                class="field-select"
+                                                style="background-color: <?php echo $field_bg_color; ?>; border-color: <?php echo $field_border_color; ?>; color: <?php echo $field_text_color; ?>;"
+                                            >
+                                                <?php foreach ($area_options as $index => $option): ?>
+                                                    <?php 
+                                                    $option_value = isset($option['value']) ? $option['value'] : '';
+                                                    $option_label = isset($option['label']) ? $option['label'] : '';
+                                                    ?>
+                                                    <?php if ($index === 0 && empty($option_value)): ?>
+                                                        <option value="<?php echo esc_attr($option_value); ?>" disabled selected hidden>
+                                                            <?php echo esc_html($option_label); ?>
+                                                        </option>
+                                                    <?php else: ?>
+                                                        <option value="<?php echo esc_attr($option_value); ?>">
+                                                            <?php echo esc_html($option_label); ?>
+                                                        </option>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
                                     <?php else: ?>
                                         <div style="background-color: <?php echo $field_bg_color; ?>; border-color: <?php echo $field_border_color; ?>; color: <?php echo $field_text_color; ?>;" class="no-options-message">
                                             لا توجد خيارات متاحة - أضف خيارات من الإعدادات
@@ -361,4 +367,5 @@ register_block_type('custom/advanced-form-block', array(
         'buttonBgColor' => array('type' => 'string', 'default' => '#007cba'),
         'buttonTextColor' => array('type' => 'string', 'default' => '#fff'),
     ),
+
 ));
