@@ -31,6 +31,12 @@ registerBlockType('custom/advanced-form-block', {
         priceMinText: { type: 'string', default: 'اقل سعر 10,000,000 EGP' },
         timeLabel: { type: 'string', default: 'الوقت المفضل للتواصل' },
 
+        // حقل الوظيفة
+showJobField: { type: 'boolean', default: true }, // NEW
+jobLabel: { type: 'string', default: 'الوظيفة' }, // NEW
+jobPlaceholder: { type: 'string', default: 'المسمى الوظيفي' }, // NEW
+
+
         // خيارات السيليكت
         unitTypeOptions: { 
             type: 'array', 
@@ -93,6 +99,7 @@ registerBlockType('custom/advanced-form-block', {
     edit: ({ attributes, setAttributes }) => {
         const {
             formTitle, formSubtitle, submitButtonText,
+            showJobField, jobLabel, jobPlaceholder,
             showNameField, showPhoneField, showUnitTypeField, showPriceField, showTimeField,showAreaField,areaLabel,areaOptions,
             nameLabel, namePlaceholder, phoneLabel, phonePlaceholder, 
             unitTypeLabel, priceLabel, pricePlaceholder, priceMinText, timeLabel,
@@ -178,6 +185,12 @@ registerBlockType('custom/advanced-form-block', {
                             checked={showAreaField}
                             onChange={(value) => setAttributes({ showAreaField: value })}
                         />
+
+<ToggleControl
+  label="إظهار حقل الوظيفة"
+  checked={showJobField}
+  onChange={(value) => setAttributes({ showJobField: value })}
+/>  {/* NEW */}
 
 
                     </PanelBody>
@@ -350,6 +363,22 @@ registerBlockType('custom/advanced-form-block', {
             إضافة خيار جديد
         </Button>
     </PanelBody>
+)}
+
+
+{showJobField && (
+  <PanelBody title="إعدادات حقل الوظيفة" initialOpen={false}> {/* NEW */}
+    <TextControl
+      label="تسمية الحقل"
+      value={jobLabel}
+      onChange={(value) => setAttributes({ jobLabel: value })}
+    />
+    <TextControl
+      label="النص الافتراضي"
+      value={jobPlaceholder}
+      onChange={(value) => setAttributes({ jobPlaceholder: value })}
+    />
+  </PanelBody>
 )}
 
 
@@ -751,6 +780,28 @@ registerBlockType('custom/advanced-form-block', {
         )}
     </div>
 )}
+
+{/* الصف الخاص بالوظيفة */} {/* NEW */}
+{showJobField && (
+  <div className="form-row">
+    <div className="form-field">
+      <label className="field-label" style={{ color: formTextColor }}>
+        {jobLabel}
+      </label>
+      <input
+        type="text"
+        placeholder={jobPlaceholder}
+        className="field-input"
+        style={{
+          backgroundColor: fieldBgColor,
+          border: `1px solid ${fieldBorderColor}`,
+          color: fieldTextColor,
+        }}
+      />
+    </div>
+  </div>
+)}
+
 
 
                                         {/* زر الإرسال */}

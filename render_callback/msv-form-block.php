@@ -13,6 +13,12 @@ function advanced_form_block_render($attributes) {
     $show_price_field = isset($attributes['showPriceField']) ? $attributes['showPriceField'] : true;
     $show_time_field = isset($attributes['showTimeField']) ? $attributes['showTimeField'] : true;
 
+    // حقل الوظيفة - NEW
+$show_job_field   = isset($attributes['showJobField']) ? $attributes['showJobField'] : true;
+$job_label        = isset($attributes['jobLabel']) ? esc_html($attributes['jobLabel']) : 'الوظيفة';
+$job_placeholder  = isset($attributes['jobPlaceholder']) ? esc_attr($attributes['jobPlaceholder']) : 'المسمى الوظيفي';
+
+
     // حقول النص
     $name_label = isset($attributes['nameLabel']) ? esc_html($attributes['nameLabel']) : 'الاسم';
     $name_placeholder = isset($attributes['namePlaceholder']) ? esc_attr($attributes['namePlaceholder']) : 'الاسم بالكامل';
@@ -25,7 +31,7 @@ function advanced_form_block_render($attributes) {
     $time_label = isset($attributes['timeLabel']) ? esc_html($attributes['timeLabel']) : 'الوقت المفضل للتواصل';
 
 
-    $show_area_field = isset($attributes['showAreaField']) ? $attributes['showAreaField'] : true;
+$show_area_field = isset($attributes['showAreaField']) ? $attributes['showAreaField'] : true;
 $area_label = isset($attributes['areaLabel']) ? esc_html($attributes['areaLabel']) : 'المنطقة';
 $area_options = isset($attributes['areaOptions']) ? $attributes['areaOptions'] : [];
 
@@ -238,6 +244,23 @@ $area_options = isset($attributes['areaOptions']) ? $attributes['areaOptions'] :
 
                         </div>
 
+<?php if ($show_job_field): ?>  <!-- NEW -->
+    <div class="form-row">
+        <div class="form-field">
+            <label class="field-label" style="color: <?php echo $form_text_color; ?>;"><?php echo $job_label; ?></label>
+            <input
+                type="text"
+                name="job"
+                required
+                class="field-input"
+                placeholder="<?php echo $job_placeholder; ?>"
+                style="background-color: <?php echo $field_bg_color; ?>; border-color: <?php echo $field_border_color; ?>; color: <?php echo $field_text_color; ?>;"
+            />
+        </div>
+    </div>
+<?php endif; ?>
+
+
                             <button 
                                 type="submit" 
                                 class="submit-button"
@@ -317,6 +340,12 @@ register_block_type('custom/advanced-form-block', array(
         // ألوان القسم
         'sectionBgColor' => array('type' => 'string', 'default' => '#000'),
         'sectionTextColor' => array('type' => 'string', 'default' => '#ffffff'),
+
+        // حقل الوظيفة - NEW
+'showJobField'     => array('type' => 'boolean', 'default' => true),
+'jobLabel'         => array('type' => 'string',  'default' => 'الوظيفة'),
+'jobPlaceholder'   => array('type' => 'string',  'default' => 'المسمى الوظيفي'),
+
 
         // ألوان الفورم
         'formBgColor' => array('type' => 'string', 'default' => '#13171f'),
